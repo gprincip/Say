@@ -1,5 +1,5 @@
 package com.say.say.dao;
 
-public class TagDao implements TagDaoInterface{
+public class TagDao{
 
 }

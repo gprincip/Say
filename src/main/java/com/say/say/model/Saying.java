@@ -37,6 +37,9 @@ public class Saying{
 		this.tags = tags;
 		this.score = score;
 	}
+	
+	public Saying() {}
+	
 	public String getText() {
 		return text;
 	}
