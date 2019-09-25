@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.say.say.dao.repository.SayingRepository;
+import com.say.say.dao.repository.TagRepository;
 import com.say.say.model.Saying;
 import com.say.say.model.Tag;
 
@@ -16,7 +17,10 @@ import com.say.say.model.Tag;
 public class SayingController {
 
 	@Autowired
-	SayingRepository sayingDao;
+	SayingRepository sayingRepo;
+	
+	@Autowired
+	TagRepository tagRepo;
 	
 	@RequestMapping(path="/testSave")
 	public void testSave() {
@@ -25,14 +29,19 @@ public class SayingController {
 		List<Tag> tags = new ArrayList<Tag>();
 		tags.add(new Tag("Sport"));
 		tags.add(new Tag("Formula 1"));
+		
+		for(Tag t : tags) {
+			tagRepo.save(t);
+		}
+		
 		s.setTags(tags);
-		sayingDao.save(s);
+		sayingRepo.save(s);
 		System.out.println("Saved: " + s);
 	}
 	
 	@RequestMapping(path="/findAll")
 	public List<Saying> findAll(){
-		return sayingDao.findAll();
+		return sayingRepo.findAll();
 	}
 	
 }
