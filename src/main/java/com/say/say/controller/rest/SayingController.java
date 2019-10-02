@@ -1,4 +1,4 @@
-package com.say.say.controller;
+package com.say.say.controller.rest;
 
 import java.util.ArrayList;
 import java.util.List;
