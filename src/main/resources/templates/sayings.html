@@ -3,11 +3,18 @@
 
 <head>
 <title>Sayings</title>
+<script src="js/libs/jquery-3.4.1.min.js"></script>
+<script src="js/libs/jquery-ui.min.js"></script>
+<script src="js/sayings.js"></script>
+<link rel="stylesheet" href="css/libs/jquery-ui.min.css">
 </head>
 
 <center>
 <form method="post" action="processSayingFromForm">
   <textarea name="saying" rows="5" cols="50">Enter text here</textarea>
+  <br>
+  <input id="tagAutocomplete" type="text" name="tag"> </input>
+  <input id="addTagggg" type="button" onclick="addTag(tag.value)" value="add"/>
   <br>
   <input type="submit">
 </form>

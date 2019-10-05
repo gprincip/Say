@@ -7,9 +7,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.say.say.dao.repository.SayingRepository;
+import com.say.say.dao.repository.TagRepository;
 import com.say.say.model.Saying;
 
 /**
@@ -22,6 +24,9 @@ public class ThymeleafController {
 
 	@Autowired
 	SayingRepository sayingRepo;
+	
+	@Autowired
+	TagRepository tagRepo;
 	
 	@RequestMapping(path="/testThymeleaf")
 	public ModelAndView testThymeleaf() {
@@ -55,12 +60,18 @@ public class ThymeleafController {
 		
 		return mav;
 	}
-	
+	/**
+	 * Method for working with request sent by html form for submitting a new saying
+	 * @param saying content of the form
+	 * @return
+	 */
 	@RequestMapping(path="/processSayingFromForm", method=RequestMethod.POST)
-	public ModelAndView processSayingFromForm() {
+	public ModelAndView processSayingFromForm(@RequestParam(name="saying") String saying) {
+		
+		System.out.println("Saying: " + saying);
 		
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("sayings");
+		mav.setViewName("redirect:sayings");
 		return mav;
 		
 	}
