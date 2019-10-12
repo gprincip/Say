@@ -1,6 +1,7 @@
 package com.say.say.controller;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.say.say.dao.repository.SayingRepository;
 import com.say.say.dao.repository.TagRepository;
 import com.say.say.model.Saying;
+import com.say.say.service.SayingService;
 
 /**
  * Controller used for adding data to thymeleaf templates
@@ -27,6 +29,9 @@ public class ThymeleafController {
 	
 	@Autowired
 	TagRepository tagRepo;
+	
+	@Autowired
+	SayingService sayingService;
 	
 	@RequestMapping(path="/testThymeleaf")
 	public ModelAndView testThymeleaf() {
@@ -66,9 +71,12 @@ public class ThymeleafController {
 	 * @return
 	 */
 	@RequestMapping(path="/processSayingFromForm", method=RequestMethod.POST)
-	public ModelAndView processSayingFromForm(@RequestParam(name="saying") String saying) {
+	public ModelAndView processSayingFromForm(@RequestParam(name="saying") String saying, @RequestParam(name="tagSet") Set<String> tags) {
 		
-		System.out.println("Saying: " + saying);
+		System.out.println("Saying: " + saying + ", Tags: " + tags);
+		
+		sayingService.persistSaying(saying, tags);
+		
 		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("redirect:sayings");

@@ -30,6 +30,11 @@ public class Tag {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	@Override
+	public String toString() {
+		return "Tag [id=" + id + ", name=" + name + "]";
+	}
 	
 	
 }

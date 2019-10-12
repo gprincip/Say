@@ -1,11 +1,12 @@
 package com.say.say.controller.rest;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.say.say.dao.repository.SayingRepository;
@@ -27,7 +28,7 @@ public class SayingController {
 	public void testSave() {
 		Saying s = new Saying("To be or not to be", "Pera", null, 0);
 		
-		List<Tag> tags = new ArrayList<Tag>();
+		Set<Tag> tags = new HashSet<Tag>();
 		tags.add(new Tag("Sport"));
 		tags.add(new Tag("Formula 1"));
 		

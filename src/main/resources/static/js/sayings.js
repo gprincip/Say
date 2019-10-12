@@ -1,12 +1,16 @@
+//tags added to the saying
+var tags = new Set();
+
 $(document).ready(function() {
 	console.log("ready!");
-
 	loadTagsFromDBForAutocomplete("api/tag/findAll");
-
+	tags.clear();
 });
 
 function addTag(val) {
-	console.log(val);
+	tags.add(val);
+	$("#addedTagsList").append("<li>" + val + "</li>");
+	console.log("asd");
 }
 
 function loadTagsFromDBForAutocomplete(apiUrl) {
@@ -26,4 +30,8 @@ function loadTagsFromDBForAutocomplete(apiUrl) {
 		}
 	
 	});
+}
+
+function beforeSubmit(){
+	$("#tagSet").val(Array.from(tags)); //add tags to hidden input form filed
 }

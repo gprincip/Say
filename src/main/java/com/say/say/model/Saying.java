@@ -1,6 +1,6 @@
 package com.say.say.model;
 
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,7 +8,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -26,13 +26,13 @@ public class Saying{
 	@Column
 	private String author;
 	
-	@OneToMany(fetch = FetchType.LAZY)
-	private List<Tag> tags;
+	@ManyToMany(fetch = FetchType.LAZY)
+	private Set<Tag> tags;
 	
 	@Column
 	private Integer score;
 	
-	public Saying(String text, String author, List<Tag> tags, int score) {
+	public Saying(String text, String author, Set<Tag> tags, int score) {
 		this.text = text;
 		this.author = author;
 		this.tags = tags;
@@ -53,10 +53,10 @@ public class Saying{
 	public void setAuthor(String author) {
 		this.author = author;
 	}
-	public List<Tag> getTags() {
+	public Set<Tag> getTags() {
 		return tags;
 	}
-	public void setTags(List<Tag> tags) {
+	public void setTags(Set<Tag> tags) {
 		this.tags = tags;
 	}
 	public int getScore() {
@@ -64,6 +64,10 @@ public class Saying{
 	}
 	public void setScore(int score) {
 		this.score = score;
+	}
+
+	public void addTag(Tag tag) {
+		tags.add(tag);
 	}
 	
 }

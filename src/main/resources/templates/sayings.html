@@ -13,11 +13,12 @@
 <form method="post" action="processSayingFromForm">
   <textarea name="saying" rows="5" cols="50">Enter text here</textarea>
   <br>
-  <input id="tagAutocomplete" type="text" name="tag"> </input>
-  <input id="addTagggg" type="button" onclick="addTag(tag.value)" value="add"/>
+  <input type="text" name="tag" id="tagAutocomplete"/>
+  <input type="button" onclick="addTag(tag.value)" value="add"/> <!-- id must be differet from onclick method name -->
+  <ul id="addedTagsList"></ul>
+  <input type="hidden" id="tagSet" name="tagSet"/>
   <br>
-  <input type="submit">
+  <input type="submit" onclick="beforeSubmit()">
 </form>
 </center>
-
 </html>
