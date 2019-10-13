@@ -1,0 +1,29 @@
+
+.center{
+  margin: auto;
+  border: 1px solid green;
+  padding: 10px;
+  float: inherit;
+  text-align: center;
+}
+
+#leftDiv{
+	float:left;
+	margin-right:5px;
+}
+
+#rightDiv{
+	float:left;
+	margin-left:5px;
+	border: 1px solid red;
+	width: 190px;
+	text-align: left;
+}
+
+.clearfix {
+  overflow: auto;
+}
+
+#mainSayingsContainer{
+	
+}

@@ -9,8 +9,7 @@ $(document).ready(function() {
 
 function addTag(val) {
 	tags.add(val);
-	$("#addedTagsList").append("<li>" + val + "</li>");
-	console.log("asd");
+	$("#addedTagsList").html(formatTagsForDisplay(tags));
 }
 
 function loadTagsFromDBForAutocomplete(apiUrl) {
@@ -35,3 +34,30 @@ function loadTagsFromDBForAutocomplete(apiUrl) {
 function beforeSubmit(){
 	$("#tagSet").val(Array.from(tags)); //add tags to hidden input form filed
 }
+
+//format tag set for displaying
+function formatTagsForDisplay(tags){
+	
+	var formattedTags = "";
+	var tagList = Array.from(tags);
+	
+	for(var i = 0; i<tagList.length; i++){
+		if(formattedTags == ""){
+			formattedTags += tagList[i];
+		}else{
+			formattedTags += ", " + tagList[i];
+		}
+	}
+	return formattedTags;
+	
+}
+
+
+
+
+
+
+
+
+
+
