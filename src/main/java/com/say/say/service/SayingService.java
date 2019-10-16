@@ -1,5 +1,6 @@
 package com.say.say.service;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -24,9 +25,9 @@ public class SayingService {
 	@Autowired
 	SayingRepository sayingRepo;
 	
-	public void persistSaying(String text, Set<String> tagNames) {
+	public void persistSaying(String text, Set<String> tagNames, String clientIp) {
 			
-		Saying saying = new Saying(text, null, null, 0);
+		Saying saying = new Saying(text, null, null, 0, clientIp, new Date());
 		
 		Set<Tag> tagObjects = loadTags(tagNames);
 		saying.setTags(tagObjects);

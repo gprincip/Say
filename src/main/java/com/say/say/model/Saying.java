@@ -1,5 +1,6 @@
 package com.say.say.model;
 
+import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -26,17 +27,26 @@ public class Saying{
 	@Column
 	private String author;
 	
+	@Column
+	private String clientIp;
+	
+	/**Date when saying was submitted*/
+	@Column
+	private Date date;
+	
 	@ManyToMany(fetch = FetchType.LAZY)
 	private Set<Tag> tags;
 	
 	@Column
 	private Integer score;
 	
-	public Saying(String text, String author, Set<Tag> tags, int score) {
+	public Saying(String text, String author, Set<Tag> tags, int score, String clientIp, Date date) {
 		this.text = text;
 		this.author = author;
 		this.tags = tags;
 		this.score = score;
+		this.clientIp = clientIp;
+		this.date = date;
 	}
 	
 	public Saying() {}
@@ -65,9 +75,19 @@ public class Saying{
 	public void setScore(int score) {
 		this.score = score;
 	}
-
+	public String getClientIp() {
+		return clientIp;
+	}
+	public void setClientIp(String clientIp) {
+		this.clientIp = clientIp;
+	}
 	public void addTag(Tag tag) {
 		tags.add(tag);
 	}
-	
+	public Date getDate() {
+		return date;
+	}
+	public void setDate(Date date) {
+		this.date = date;
+	}
 }

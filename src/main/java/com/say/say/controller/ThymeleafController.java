@@ -3,6 +3,9 @@ package com.say.say.controller;
 import java.util.List;
 import java.util.Set;
 
+import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +18,7 @@ import com.say.say.dao.repository.SayingRepository;
 import com.say.say.dao.repository.TagRepository;
 import com.say.say.model.Saying;
 import com.say.say.service.SayingService;
+import com.say.say.util.Util;
 
 /**
  * Controller used for adding data to thymeleaf templates
@@ -71,11 +75,12 @@ public class ThymeleafController {
 	 * @return
 	 */
 	@RequestMapping(path="/processSayingFromForm", method=RequestMethod.POST)
-	public ModelAndView processSayingFromForm(@RequestParam(name="saying") String saying, @RequestParam(name="tagSet") Set<String> tags) {
+	public ModelAndView processSayingFromForm(@RequestParam(name="saying") String saying, @RequestParam(name="tagSet") Set<String> tags
+			,HttpServletRequest req) {
 		
-		System.out.println("Saying: " + saying + ", Tags: " + tags);
+		String clientIp = Util.extractIpFromServletRequest(req);
 		
-		sayingService.persistSaying(saying, tags);
+		sayingService.persistSaying(saying, tags, clientIp);
 		
 		
 		ModelAndView mav = new ModelAndView();

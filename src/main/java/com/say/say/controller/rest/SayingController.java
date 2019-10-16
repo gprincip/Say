@@ -1,9 +1,10 @@
 package com.say.say.controller.rest;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +27,7 @@ public class SayingController {
 	
 	@RequestMapping(path="/testSave")
 	public void testSave() {
-		Saying s = new Saying("To be or not to be", "Pera", null, 0);
+		Saying s = new Saying("To be or not to be", "Pera", null, 0, null, null);
 		
 		Set<Tag> tags = new HashSet<Tag>();
 		tags.add(new Tag("Sport"));
@@ -42,7 +43,7 @@ public class SayingController {
 	}
 	
 	@RequestMapping(path="/findAll")
-	public List<Saying> findAll(){
+	public List<Saying> findAll(HttpServletRequest request){
 		return sayingRepo.findAll();
 	}
 	
