@@ -7,8 +7,9 @@ $(document).ready(function() {
 	tags.clear();
 });
 
-function addTag(val) {
-	tags.add(val);
+function addTag() {
+	var tag = $("#tagAutocomplete").val();
+	tags.add(tag);
 	$("#addedTagsList").html(formatTagsForDisplay(tags));
 }
 
@@ -52,12 +53,70 @@ function formatTagsForDisplay(tags){
 	
 }
 
+function validateAndSave(){
+	
+	var saying = {
+			"id":null,
+			"text":$("#saying").val(),
+			"author":"testAuthor",
+			"clientIp":null,
+			"date":null,
+			"tags":tagsToJson(),
+			"score":"0"
+	}
+	
+	jQuery.post({
+		url : "api/saying/validateAndSaveSaying",
+		contentType: "application/json; charset=utf-8",
+		data: JSON.stringify(saying),
+		success : function(status) {
+			console.log(status);
+			if(status != ''){
+				afterErrors(status);
+			}else{
+				afterSuccess();
+				
+			}
+			
+		}
+	
+	});
+	
+}
 
+function tagsToJson(){
 
+	var tagsArr = [];
+	var tagList = Array.from(tags);
+	for(var i = 0; i < tagList.length; i++){
+		var tag = {};
+		tag["id"] = null;
+		tag["name"] = tagList[i];
+		tagsArr.push(tag);
+	}
+	
+	return tagsArr;
+}
 
+function clearFields(){
+	
+	$("#saying").val("");
+	$("#tagAutocomplete").val("");
+	$("#warning").text("");
+	$("#addedTagsList").text("");
+	
+}
 
+function afterSuccess(){
+	clearFields();
+	$("#success").text("Successfuly posted!");
+	//remove tags when saying is submitted successfully
+	tags.clear();
+}
 
-
-
+function afterErrors(status){
+	$("#warning").text(status);
+	$("#success").text("");
+}
 
 

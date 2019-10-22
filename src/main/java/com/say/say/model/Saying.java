@@ -2,6 +2,8 @@ package com.say.say.model;
 
 import java.util.Date;
 import java.util.Set;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,6 +13,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name="saying")
@@ -35,6 +39,7 @@ public class Saying{
 	private Date date;
 	
 	@ManyToMany(fetch = FetchType.LAZY)
+	@JsonProperty("tags")
 	private Set<Tag> tags;
 	
 	@Column
@@ -90,4 +95,17 @@ public class Saying{
 	public void setDate(Date date) {
 		this.date = date;
 	}
+
+	@Override
+	public String toString() {
+		return "Saying [id=" + id + ", text=" + text + ", author=" + author + ", clientIp=" + clientIp + ", date="
+				+ date + ", tags=" + tags + ", score=" + score + "]";
+	}
+
+	public Set<String> getTagNames() {
+		
+		return (tags.stream().map(elem -> elem.getName()).collect(Collectors.toSet()));		
+		
+	}
+	
 }

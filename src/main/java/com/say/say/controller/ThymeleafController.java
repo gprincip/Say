@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.say.say.dao.repository.SayingRepository;
 import com.say.say.dao.repository.TagRepository;
@@ -74,19 +75,46 @@ public class ThymeleafController {
 	 * @param saying content of the form
 	 * @return
 	 */
-	@RequestMapping(path="/processSayingFromForm", method=RequestMethod.POST)
-	public ModelAndView processSayingFromForm(@RequestParam(name="saying") String saying, @RequestParam(name="tagSet") Set<String> tags
-			,HttpServletRequest req) {
+	@RequestMapping(path="/submitSaying", method=RequestMethod.POST)
+	public ModelAndView submitSaying(@RequestParam(name="saying") String saying, @RequestParam(name="tagSet") Set<String> tags
+			,HttpServletRequest req, RedirectAttributes redirectAttributes) {
 		
 		String clientIp = Util.extractIpFromServletRequest(req);
 		
 		sayingService.persistSaying(saying, tags, clientIp);
 		
-		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("redirect:sayings");
+		redirectAttributes.addFlashAttribute("message", "testtesttest");
 		return mav;
 		
 	}
 	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

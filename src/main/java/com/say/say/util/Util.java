@@ -2,6 +2,7 @@ package com.say.say.util;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -10,6 +11,12 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.StringUtils;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.say.say.model.Saying;
+import com.say.say.model.UserBean;
 
 public class Util {
 
@@ -65,5 +72,45 @@ public class Util {
 		
 		return propsMap;
 	}
+	
+	public static Saying jsonToSaying(String json) {
+		
+		Gson gson = new Gson();
+		Saying saying = gson.fromJson(json, Saying.class);
+		return saying;
+		
+	}
+
+	public static void setUserdata(UserBean user, HttpServletRequest request) {
+		
+		if(isNotInitialized(user)) {
+			initializeUser(user, request);
+		}
+		
+	}
+
+	/**
+	 * Method used to populate session scoped user data
+	 * @param user
+	 * @param request
+	 */
+	private static void initializeUser(UserBean user, HttpServletRequest request) {
+		String userIp = extractIpFromServletRequest(request);
+		user.setUserIp(userIp);
+	}
+
+	/**
+	 * Checks if user has been initialized
+	 * @param user
+	 * @return
+	 */
+	private static boolean isNotInitialized(UserBean user) {
+		
+		if(StringUtils.isEmpty(user.getUserIp())){
+			return true;
+		}else return false;
+		
+	}
+	
 	
 }

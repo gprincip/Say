@@ -10,16 +10,24 @@
 <link rel="stylesheet" href="css/sayings.css">
 </head>
 
-<div id="mainSayingsContainer" class="center clearfix"> <!-- use clearfix class to fix overflow when using css flow attr -->
+<div id="mainSayingsContainer" class="center clearfix">
+	<!-- use clearfix class to fix overflow when using css flow attr -->
 
 	<div id="leftDiv">
-		<form method="post" action="processSayingFromForm">
-			<textarea name="saying" rows="5" cols="50">Enter text here</textarea>
-			<br> <input type="text" name="tag" id="tagAutocomplete" /> <input
-				type="button" onclick="addTag(tag.value)" value="add" /> <!-- id must be differet from onclick method name -->
-			<input type="hidden" id="tagSet" name="tagSet" /> <br> <input
-				type="submit" onclick="beforeSubmit()">
+		<form>
+			<input type="hidden" id="tagSet" name="tagSet" /> <br>
 		</form>
+		
+		<textarea id="saying" name="saying" rows="5" cols="50">Enter text here</textarea>
+		<br> <input type="text" id="tagAutocomplete" /> 
+		<input type="button" onclick="addTag()" value="add" /></br>
+		<!-- id must be different from onclick method name -->
+		
+		<button onclick="validateAndSave()">submit</button></br>
+
+		<span class = "error" id="warning"></span>
+		<span class = "success" id="success"></span>
+
 	</div>
 	<div id="rightDiv">
 		<span id="addedTagsList"></span>

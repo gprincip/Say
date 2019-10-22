@@ -33,44 +33,12 @@ public class SayingService {
 			
 		Saying saying = new Saying(text, null, null, 0, clientIp, new Date());
 		
-		if(!validateClient(clientIp)) {
-			log.warn("Client didn't pass validation! Saying will not be saved!");
-			return;
-		}
-		
 		Set<Tag> tagObjects = loadTags(tagNames);
 		saying.setTags(tagObjects);
 		
 		sayingRepo.save(saying);
 		log.info("New saying saved! info: " + saying);
 		
-	}
-
-	/**
-	 * Validate if client is allowed to post the saying
-	 * @param clientIp
-	 * @return true if client is allowed to post</br>
-	 * 	       false otherwise
-	 */
-	private boolean validateClient(String clientIp) {
-		
-		Saying lastSaying = sayingRepo.getLastSayingFromIp(clientIp);
-		if(lastSaying != null) {
-				
-			Date date = lastSaying.getDate();
-			Date now = new Date();
-			Long postingCooldownMillis = Long.parseLong(config.getPostingCooldown());
-			
-			if(date.before(now) && postingCooldownMillis != null && 
-					(now.getTime() - date.getTime()) > postingCooldownMillis) {
-				return true;
-			}else {
-				return false;
-			}
-		}else {
-			return true;
-		}
-
 	}
 
 	/**

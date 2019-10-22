@@ -7,13 +7,20 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nimbusds.oauth2.sdk.util.StringUtils;
 import com.say.say.dao.repository.SayingRepository;
 import com.say.say.dao.repository.TagRepository;
 import com.say.say.model.Saying;
 import com.say.say.model.Tag;
+import com.say.say.model.UserBean;
+import com.say.say.service.SayingService;
+import com.say.say.service.UserService;
+import com.say.say.util.Util;
 
 @RestController
 @RequestMapping(path="/api/saying")
@@ -23,7 +30,19 @@ public class SayingController {
 	SayingRepository sayingRepo;
 	
 	@Autowired
+	SayingService sayingService;
+	
+	@Autowired
 	TagRepository tagRepo;
+	
+	/**
+	 * Current user
+	 */
+	@Autowired
+	UserBean user;
+	
+	@Autowired
+	UserService userService;
 	
 	@RequestMapping(path="/testSave")
 	public void testSave() {
@@ -45,6 +64,41 @@ public class SayingController {
 	@RequestMapping(path="/findAll")
 	public List<Saying> findAll(HttpServletRequest request){
 		return sayingRepo.findAll();
+	}
+	
+	/**
+	 * Validate and save saying
+	 * @param sayingJson
+	 * @return status after validation (error messages etc..)
+	 */
+	@RequestMapping(path="/validateAndSaveSaying", consumes={"application/json"}, method=RequestMethod.POST)
+	public String validateAndSaveSaying(@RequestBody String sayingJson) {
+		
+		String userIp = user.getUserIp();
+		String waitingTime = userService.timeUntilPostingCooldownExpired(userIp);
+		Saying saying = Util.jsonToSaying(sayingJson);
+		
+		if(!(waitingTime).equals("0")) {
+			return "You must wait " + waitingTime + " more miliseconds until you can post again!";
+		}
+		
+		if(saying.getTags() == null || saying.getTags().size() == 0) {
+			return "You mast add at least one tag!";
+		}
+		
+		if(saying.getText() == null || StringUtils.isBlank(saying.getText())) {
+			return "Text cannot be empty or blank!";
+		}
+		
+		sayingService.persistSaying(saying.getText(), saying.getTagNames(), userIp);
+		
+		return "";
+	}
+	
+	@RequestMapping(path="/save", method=RequestMethod.POST)
+	public void saveSaying(@RequestBody String sayingJson){
+		Saying saying = Util.jsonToSaying(sayingJson);
+		sayingService.persistSaying(saying.getText(), saying.getTagNames(), user.getUserIp());
 	}
 	
 }
