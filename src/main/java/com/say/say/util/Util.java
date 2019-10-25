@@ -2,8 +2,9 @@ package com.say.say.util;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -14,7 +15,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
 import com.say.say.model.Saying;
 import com.say.say.model.UserBean;
 
@@ -110,6 +110,23 @@ public class Util {
 			return true;
 		}else return false;
 		
+	}
+
+	public static List<Long> csvToLongs(String tagIdsCsv) {
+
+		String[] splitted = tagIdsCsv.split(",");
+		List<Long> longList = new ArrayList<Long>();
+
+		for (String str : splitted) {
+			try {
+				Long lng = Long.parseLong(str.trim());
+				longList.add(lng);
+			} catch (Exception e) {
+				log.warn("String :" + str + "couldn't be parsed to long, it will be skipped!");
+			}
+		}
+
+		return longList;
 	}
 	
 	

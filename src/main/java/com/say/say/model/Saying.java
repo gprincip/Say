@@ -2,7 +2,6 @@ package com.say.say.model;
 
 import java.util.Date;
 import java.util.Set;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import javax.persistence.Column;
