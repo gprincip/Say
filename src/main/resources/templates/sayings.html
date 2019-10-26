@@ -13,14 +13,14 @@
 <div id="mainSayingsContainer" class="center clearfix">
 	<!-- use clearfix class to fix overflow when using css flow attr -->
 
-	<div id="leftDiv">
+	<div id="submitDiv">
 		<form>
 			<input type="hidden" id="tagSet" name="tagSet" /> <br>
 		</form>
 		
-		<textarea id="saying" name="saying" rows="5" cols="50">Enter text here</textarea>
+		<textarea id="saying" name="saying" rows="4" cols="30">Enter text here</textarea>
 		<br> <input type="text" id="tagAutocomplete" /> 
-		<input type="button" onclick="addTag()" value="add" /></br>
+		<input type="button" onclick="addTag()" value="add" /></br></br>
 		<!-- id must be different from onclick method name -->
 		
 		<button onclick="validateAndSave()">submit</button></br>
@@ -29,8 +29,12 @@
 		<span class = "success" id="success"></span>
 
 	</div>
-	<div id="rightDiv">
+	<div id="tagsDiv">
 		<span id="addedTagsList"></span>
+	</div>
+	
+	<div id="searchDiv">
+	
 	</div>
 
 </div>

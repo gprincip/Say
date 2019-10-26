@@ -7,17 +7,29 @@
   text-align: center;
 }
 
-#leftDiv{
+#submitDiv{
+	border: 1px solid red;
+	padding: 10px;
 	float:left;
-	margin-right:5px;
+	width: 300px;
+	height: 180px;
 }
 
-#rightDiv{
+#tagsDiv{
 	float:left;
-	margin-left:5px;
+	margin-left:15px;
 	border: 1px solid red;
-	width: 190px;
+	width: 150px;
+	height: 100px;
 	text-align: left;
+}
+
+#searchDiv{
+	float:left;
+	margin-left:15px;
+	border: 1px solid red;
+	width: 300px;
+	height: 150px;
 }
 
 .clearfix {

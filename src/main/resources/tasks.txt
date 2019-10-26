@@ -1,0 +1,21 @@
+1. Make searching fragment on the sayings.html. One textbox, radioButtons which define some search parameters and a search button.
+	1.1 Search all sayings that have one of the specified tags
+	1.2 Search all sayings that have exactly specified tags
+	1.3 Search all sayings from specified author
+	1.4 Search all sayings by text
+	
+2. Fix layout glitches
+
+3. Tags can be removed
+
+4. Forbid empty sayings to be posted
+
+5. Display cooldown time in some unit other then ms
+
+6. Make logging to a file
+
+7. Maybe set hibernate logging properly
+
+8. Create users and authorization/authentication
+
+9. Protect REST (or check if it is needed)
