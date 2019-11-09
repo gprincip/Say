@@ -1,14 +1,8 @@
 1. Make searching fragment on the sayings.html. One textbox, radioButtons which define some search parameters and a search button.
-	1.1 Search all sayings that have one of the specified tags
-	1.2 Search all sayings that have exactly specified tags
-	1.3 Search all sayings from specified author
-	1.4 Search all sayings by text
-	
-2. Fix layout glitches
+	1.5. Display paginated search results
+	1.6. Consider live search using autocomplete
 
 3. Tags can be removed
-
-4. Forbid empty sayings to be posted
 
 5. Display cooldown time in some unit other then ms
 
@@ -19,3 +13,30 @@
 8. Create users and authorization/authentication
 
 9. Protect REST (or check if it is needed)
+
+10. Use Cookies or similar to pre-fill some data in the sayings form
+
+11. Fix database - review constraints, associations, table names...
+
+12. Maybe externalize sql queries?
+
+13. Consider changing searching mechanism to utilize all search types without checking some radio button first.
+For example like on facebook, when you type something it searches for names, locations, groups and more at the
+same time.
+
+14. Consider hot-reload
+
+15. Query getSayingsContainingExactlyGivenTags in SayingRepository don't work for searching one tag (tested with 33)
+
+16. Make admin page and permit it only for admins. For example configuration can be reloaded there without restarting the app
+==========================RESOLVED TASKS============================
+
+2. Fix layout glitches
+
+1.1. Search all sayings that have one of the specified tags
+1.2. Search all sayings that have exactly specified tags
+1.3. Search all sayings from specified author
+1.4. Search all sayings by text
+
+4. Forbid empty sayings to be posted
+

@@ -16,6 +16,7 @@ import org.springframework.util.StringUtils;
 
 import com.google.gson.Gson;
 import com.say.say.model.Saying;
+import com.say.say.model.TimeUnit;
 import com.say.say.model.UserBean;
 
 public class Util {
@@ -128,6 +129,5 @@ public class Util {
 
 		return longList;
 	}
-	
-	
+
 }

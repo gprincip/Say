@@ -22,7 +22,9 @@ public class GlobalConfig {
 
 	private Map<String,String> propertyMap;
 	
-	private static final String POSTING_COOLDOWN_KEY = "post_cooldown_miliseconds";
+	private static final String POSTING_COOLDOWN_KEY = "post_cooldown.miliseconds";
+	private static final String POSTING_COOLDOWN_FORMAT_KEY = "post_cooldown.format.units";
+	private static final String POSTING_COOLDOWN_UNITS_NUMBER = "post_cooldown.format.takeFirstNUnits";
 	
 	public void init() {
 		
@@ -37,12 +39,20 @@ public class GlobalConfig {
 		
 	}
 	
+	private String getProperty(String key) {
+		return (propertyMap.get(key));
+	}
+
 	public String getPostingCooldown() {
 		return getProperty(POSTING_COOLDOWN_KEY);
 	}
-
-	private String getProperty(String key) {
-		return (propertyMap.get(key));
+	
+	public String getPostingCooldownFormat() {
+		return getProperty(POSTING_COOLDOWN_FORMAT_KEY);
+	}
+	
+	public String getNumberOfUnitsForCooldownTimeDisplay() {
+		return getProperty(POSTING_COOLDOWN_UNITS_NUMBER);
 	}
 	
 }

@@ -22,6 +22,17 @@ public interface SayingRepository extends JpaRepository<Saying, Long>{
 	@Query(value="select distinct * from saying s where id in ("
 			+ "select saying_id from saying_tags where saying_id = s.id "
 			+ "and tags_id in (:tagIds))", nativeQuery=true)
-	public List<Saying> getSayingsWithTags(@Param(value="tagIds")List<Long> tagIds);
+	public List<Saying> getSayingsContainingAnyGivenTags(@Param(value="tagIds")List<Long> tagIds);
+	
+	@Query(value="select * from saying\n" + 
+			"	where text like '%:searchTerm%'", nativeQuery=true)
+	public List<Saying> getSayingsByText(@Param(value="searchTerm")String searchTerm);
+	
+	@Query(value="select saying_id\n" + 
+			"from saying_tags\n" + 
+			"group by saying_id \n" + 
+			"having count(distinct case when tags_id in (:tagIds) then tags_id else 0 end) = :tagCount\n" + 
+			"and min(case when tags_id in (:tagIds) then tags_id else 0 end) > 0", nativeQuery=true)
+	public List<Integer> getSayingsContainingExactlyGivenTags(@Param(value="tagIds")String tagIds, @Param(value="tagCount") String tagCount);
 	
 }

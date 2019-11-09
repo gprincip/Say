@@ -14,9 +14,22 @@ public class SayingSearcher {
 	@Autowired
 	SayingRepository sayingRepo;
 	
-	public List<Saying> searchByTags(List<Long> tagIds){
+	public List<Saying> searchSayingsContainingAnyGivenTags(List<Long> tagIds){
 		
-		return sayingRepo.getSayingsWithTags(tagIds);
+		return sayingRepo.getSayingsContainingAnyGivenTags(tagIds);
+		
+	}
+	
+	public List<Integer> searchSayingsContainingExactlyGivenTags(List<Long> tagIds){
+		
+		String tagsCsv = "";
+		for(Long id : tagIds) {
+			tagsCsv += id + ",";
+		}
+		
+		tagsCsv = tagsCsv.substring(0, tagsCsv.length()-1); //remove last coma
+		
+		return sayingRepo.getSayingsContainingExactlyGivenTags(tagsCsv, Integer.valueOf(tagIds.size()).toString());
 		
 	}
 	
