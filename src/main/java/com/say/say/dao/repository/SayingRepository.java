@@ -33,6 +33,6 @@ public interface SayingRepository extends JpaRepository<Saying, Long>{
 			"group by saying_id \n" + 
 			"having count(distinct case when tags_id in (:tagIds) then tags_id else 0 end) = :tagCount\n" + 
 			"and min(case when tags_id in (:tagIds) then tags_id else 0 end) > 0", nativeQuery=true)
-	public List<Integer> getSayingsContainingExactlyGivenTags(@Param(value="tagIds")String tagIds, @Param(value="tagCount") String tagCount);
+	public List<Long> getSayingsContainingExactlyGivenTags(@Param(value="tagIds")List<Long> tagIds, @Param(value="tagCount") String tagCount);
 	
 }

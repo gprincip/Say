@@ -4,8 +4,6 @@
 
 3. Tags can be removed
 
-5. Display cooldown time in some unit other then ms
-
 6. Make logging to a file
 
 7. Maybe set hibernate logging properly
@@ -29,6 +27,8 @@ same time.
 15. Query getSayingsContainingExactlyGivenTags in SayingRepository don't work for searching one tag (tested with 33)
 
 16. Make admin page and permit it only for admins. For example configuration can be reloaded there without restarting the app
+
+18. For post_cooldown.format.units=minutes,seconds, when there is < 1sec left, no time is displayed
 ==========================RESOLVED TASKS============================
 
 2. Fix layout glitches
@@ -39,4 +39,9 @@ same time.
 1.4. Search all sayings by text
 
 4. Forbid empty sayings to be posted
+
+5. Display cooldown time in some unit other then ms
+
+17. Search doesn't work:
+public List<Integer> getSayingsContainingExactlyGivenTags(@Param(value="tagIds")String tagIds, @Param(value="tagCount") String tagCount)
 

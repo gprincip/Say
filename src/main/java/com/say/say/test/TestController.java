@@ -40,11 +40,11 @@ public class TestController {
 	}
 	
 	@RequestMapping(value="/testSearch2")
-	public void getSayingsWithExactTags(@RequestParam(value="tagIds") String tagIdsCsv) {
+	public List<Long> getSayingsWithExactTags(@RequestParam(value="tagIds") String tagIdsCsv) {
 		
 		List<Long> tagIds = Util.csvToLongs(tagIdsCsv);
-		List<Integer> result = searcher.searchSayingsContainingExactlyGivenTags(tagIds);
-		System.out.println(result);
+		List<Long> result = searcher.searchSayingsContainingExactlyGivenTags(tagIds);
+		return result;
 	}
 	
 }

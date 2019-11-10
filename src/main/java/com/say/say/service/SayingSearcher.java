@@ -20,16 +20,11 @@ public class SayingSearcher {
 		
 	}
 	
-	public List<Integer> searchSayingsContainingExactlyGivenTags(List<Long> tagIds){
+	public List<Long> searchSayingsContainingExactlyGivenTags(List<Long> tagIds){
 		
-		String tagsCsv = "";
-		for(Long id : tagIds) {
-			tagsCsv += id + ",";
-		}
+		List<Long> result = sayingRepo.getSayingsContainingExactlyGivenTags(tagIds, "2");
 		
-		tagsCsv = tagsCsv.substring(0, tagsCsv.length()-1); //remove last coma
-		
-		return sayingRepo.getSayingsContainingExactlyGivenTags(tagsCsv, Integer.valueOf(tagIds.size()).toString());
+		return result;
 		
 	}
 	
