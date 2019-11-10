@@ -29,11 +29,12 @@ public class SayingService {
 	@Autowired
 	GlobalConfig config;
 	
-	public void persistSaying(String text, Set<String> tagNames, String clientIp) {
+	public void persistSaying(Saying saying, String clientIp) {
 			
-		Saying saying = new Saying(text, null, null, 0, clientIp, new Date());
+		saying.setClientIp(clientIp);
+		saying.setDate(new Date());
 		
-		Set<Tag> tagObjects = loadTags(tagNames);
+		Set<Tag> tagObjects = loadTags(saying.getTagNames());
 		saying.setTags(tagObjects);
 		
 		sayingRepo.save(saying);

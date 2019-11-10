@@ -75,6 +75,7 @@ public class ThymeleafController {
 	 * @param saying content of the form
 	 * @return
 	 */
+	/*
 	@RequestMapping(path="/submitSaying", method=RequestMethod.POST)
 	public ModelAndView submitSaying(@RequestParam(name="saying") String saying, @RequestParam(name="tagSet") Set<String> tags
 			,HttpServletRequest req, RedirectAttributes redirectAttributes) {
@@ -89,7 +90,7 @@ public class ThymeleafController {
 		return mav;
 		
 	}
-	
+	*/
 }
 
 

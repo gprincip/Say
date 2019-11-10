@@ -1,6 +1,5 @@
-1. Make searching fragment on the sayings.html. One textbox, radioButtons which define some search parameters and a search button.
-	1.5. Display paginated search results
-	1.6. Consider live search using autocomplete
+1. Implement search functionality
+	1.5. Implement FE for search, consider live search using jQuery autocomplete
 
 3. Tags can be removed
 
@@ -24,8 +23,6 @@ same time.
 
 14. Consider hot-reload
 
-15. Query getSayingsContainingExactlyGivenTags in SayingRepository don't work for searching one tag (tested with 33)
-
 16. Make admin page and permit it only for admins. For example configuration can be reloaded there without restarting the app
 
 18. For post_cooldown.format.units=minutes,seconds, when there is < 1sec left, no time is displayed
@@ -42,6 +39,8 @@ same time.
 
 5. Display cooldown time in some unit other then ms
 
-17. Search doesn't work:
+17. (Duplicate of 15.) Search doesn't work:
 public List<Integer> getSayingsContainingExactlyGivenTags(@Param(value="tagIds")String tagIds, @Param(value="tagCount") String tagCount)
+
+15. Query getSayingsContainingExactlyGivenTags in SayingRepository don't work for searching one tag (tested with 33)
 

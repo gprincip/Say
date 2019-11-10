@@ -97,15 +97,9 @@ public class SayingController {
 			return "Text cannot be empty or blank!";
 		}
 		
-		sayingService.persistSaying(saying.getText(), saying.getTagNames(), userIp);
+		sayingService.persistSaying(saying, userIp);
 		
 		return "";
-	}
-	
-	@RequestMapping(path="/save", method=RequestMethod.POST)
-	public void saveSaying(@RequestBody String sayingJson){
-		Saying saying = Util.jsonToSaying(sayingJson);
-		sayingService.persistSaying(saying.getText(), saying.getTagNames(), user.getUserIp());
 	}
 	
 }
