@@ -1,5 +1,5 @@
 1. Implement search functionality
-	1.5. Implement FE for search, consider live search using jQuery autocomplete
+	1.6. Defining event listener inside success branch from json call don't work, fix it
 
 3. Tags can be removed
 
@@ -13,7 +13,7 @@
 
 10. Use Cookies or similar to pre-fill some data in the sayings form
 
-11. Fix database - review constraints, associations, table names...
+11. Fix database - review constraints, associations, table names... (saying's author should be foreign key to User)
 
 12. Maybe externalize sql queries?
 
@@ -26,6 +26,10 @@ same time.
 16. Make admin page and permit it only for admins. For example configuration can be reloaded there without restarting the app
 
 18. For post_cooldown.format.units=minutes,seconds, when there is < 1sec left, no time is displayed
+
+19. Autocomplete search - implement that json call result is discarded and new call is initiated when result.searchTerm is different then 
+data currently in the search box inserted by user (if needed at all, for now this seems to work pretty well)
+
 ==========================RESOLVED TASKS============================
 
 2. Fix layout glitches
@@ -34,6 +38,7 @@ same time.
 1.2. Search all sayings that have exactly specified tags
 1.3. Search all sayings from specified author
 1.4. Search all sayings by text
+1.5. Implement FE for search, consider live search using jQuery autocomplete
 
 4. Forbid empty sayings to be posted
 

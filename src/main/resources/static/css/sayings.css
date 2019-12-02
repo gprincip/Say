@@ -3,7 +3,6 @@
   margin: auto;
   border: 1px solid green;
   padding: 10px;
-  float: inherit;
   text-align: center;
 }
 
@@ -55,5 +54,29 @@
 .success{
 	color: green;
 }
+
+/* https://stackoverflow.com/questions/11433848/div-next-to-centered-div */
+
+#loader{
+	display: inline-block;
+	position: relative;
+	width: 18px;
+	height: 18px;
+	top: 2px;
+	right: -5px;
+}
+
+#loaderWrapper{
+	display: inline-block;
+	position: absolute;
+	width: 0px;
+	height: 0px;
+	vertical-align: top;
+}
+
+#mainSayingsContainer{
+	
+}
+
 
 

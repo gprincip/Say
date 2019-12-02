@@ -24,8 +24,7 @@ public interface SayingRepository extends JpaRepository<Saying, Long>{
 			+ "and tags_id in (:tagIds))", nativeQuery=true)
 	public List<Saying> getSayingsContainingAnyGivenTags(@Param(value="tagIds")List<Long> tagIds);
 	
-	@Query(value="select * from saying\n" + 
-			"	where text like '%:searchTerm%'", nativeQuery=true)
+	@Query(value="select * from saying where text like concat('%',:searchTerm, '%')", nativeQuery=true)
 	public List<Saying> getSayingsByText(@Param(value="searchTerm")String searchTerm);
 	
 	@Query(value="select saying_id\n" + 

@@ -6,7 +6,9 @@
 <script src="js/libs/jquery-3.4.1.min.js"></script>
 <script src="js/libs/jquery-ui.min.js"></script>
 <link rel="stylesheet" href="css/libs/jquery-ui.min.css">
+<link rel="stylesheet" href="css/autocomplete.css">
 <script src="js/sayings.js"></script>
+<script src="js/searchSayings.js"></script>
 <link rel="stylesheet" href="css/sayings.css">
 </head>
 
@@ -33,10 +35,10 @@
 		<span id="addedTagsList"></span>
 	</div>
 	
-	<div id="searchDiv">
+	<div id="searchDiv" class="center">
 		</br>
-		<input type="text" id="searchTerm" placeholder="Enter search term..."/></br></br>
-		<button id="searchBtn">Search</button>
+		<input type="text" id="searchTerm" placeholder="Enter search term..."/>
+		<div id="loaderWrapper"><img id = "loader" src="images/loader.gif"></img></div> </br></br>
 	</div>
 
 </div>

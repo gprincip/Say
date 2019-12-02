@@ -1,25 +1,19 @@
 package com.say.say.controller;
 
 import java.util.List;
-import java.util.Set;
-
-import javax.servlet.ServletRequest;
-import javax.servlet.http.HttpServletRequest;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.say.say.dao.repository.SayingRepository;
 import com.say.say.dao.repository.TagRepository;
 import com.say.say.model.Saying;
 import com.say.say.service.SayingService;
-import com.say.say.util.Util;
 
 /**
  * Controller used for adding data to thymeleaf templates
@@ -70,27 +64,26 @@ public class ThymeleafController {
 		
 		return mav;
 	}
-	/**
-	 * Method for working with request sent by html form for submitting a new saying
-	 * @param saying content of the form
-	 * @return
-	 */
-	/*
-	@RequestMapping(path="/submitSaying", method=RequestMethod.POST)
-	public ModelAndView submitSaying(@RequestParam(name="saying") String saying, @RequestParam(name="tagSet") Set<String> tags
-			,HttpServletRequest req, RedirectAttributes redirectAttributes) {
-		
-		String clientIp = Util.extractIpFromServletRequest(req);
-		
-		sayingService.persistSaying(saying, tags, clientIp);
+	
+	@RequestMapping(path="/sayings/{sayingId}")
+	public ModelAndView getSingleSaying(@PathVariable(name = "sayingId") String sayingId) {
 		
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("redirect:sayings");
-		redirectAttributes.addFlashAttribute("message", "testtesttest");
+		mav.setViewName("sayingTemplate");
+
+		Long id = Long.parseLong(sayingId);
+		
+		Optional<Saying> loadedSaying = sayingRepo.findById(id);
+		if(loadedSaying.isPresent()) {
+			mav.addObject("saying", loadedSaying.get());
+		}
+		
+		
 		return mav;
 		
 	}
-	*/
+	
+
 }
 
 

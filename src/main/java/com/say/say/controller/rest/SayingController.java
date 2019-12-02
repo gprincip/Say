@@ -21,6 +21,7 @@ import com.say.say.model.Tag;
 import com.say.say.model.UserBean;
 import com.say.say.service.SayingService;
 import com.say.say.service.UserService;
+import com.say.say.util.JsonUtil;
 import com.say.say.util.TimeUtil;
 import com.say.say.util.Util;
 
@@ -81,7 +82,7 @@ public class SayingController {
 		
 		String userIp = user.getUserIp();
 		String waitingTimeInMilliseconds = userService.timeUntilPostingCooldownExpired(userIp);
-		Saying saying = Util.jsonToSaying(sayingJson);
+		Saying saying = JsonUtil.jsonToSaying(sayingJson);
 		
 		String timeUnits = config.getPostingCooldownFormat();
 		int numUnits = Integer.parseInt(config.getNumberOfUnitsForCooldownTimeDisplay());

@@ -5,12 +5,17 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.say.say.model.Saying;
+import com.say.say.search.DBSearcher;
+import com.say.say.search.SearchResult;
 import com.say.say.service.SayingSearcher;
+import com.say.say.service.SayingService;
+import com.say.say.util.JsonUtil;
 import com.say.say.util.Util;
 
 @RestController
@@ -19,6 +24,12 @@ public class TestController {
 
 	@Autowired
 	SayingSearcher searcher;
+	
+	@Autowired
+	DBSearcher dbSearcher;
+	
+	@Autowired
+	SayingService sService;
 	
 	@RequestMapping(value="/testIpExtraction")
 	public void getClientIp(HttpServletRequest request) {
@@ -47,4 +58,17 @@ public class TestController {
 		return result;
 	}
 	
+	@RequestMapping(value="/search/sText")
+	public String sayingsByText(@RequestParam(value="searchTerm") String searchTerm, @RequestParam(value="fetchQuantity") Integer fetchQuantity) {
+		
+		SearchResult result = dbSearcher.search(searchTerm, fetchQuantity, null);
+		return JsonUtil.searchResultToJson(result);
+	}
+	
+	@RequestMapping(value="/search/sText2")
+	public List<Saying> sayingsByText2(@RequestParam(value="searchTerm") String searchTerm) {
+		
+		return sService.getSayingsByTextLimited("q", 4);
+		
+	}
 }

@@ -2,11 +2,17 @@ package com.say.say.service;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import com.say.say.config.GlobalConfig;
@@ -25,6 +31,9 @@ public class SayingService {
 	
 	@Autowired
 	SayingRepository sayingRepo;
+	
+	@PersistenceContext
+	EntityManager entityManager;
 	
 	@Autowired
 	GlobalConfig config;
@@ -70,4 +79,21 @@ public class SayingService {
 		
 	}
 	
+	/**
+	 * Returns list of sayings limited by number
+	 * @param limit max number of sayings that will be returned by query
+	 * @param id of the
+	 * @return
+	 */
+	public List<Saying> getSayingsByTextLimited(String searchTerm, int limit) {
+		
+		javax.persistence.Query query = entityManager.createNativeQuery("select * from saying where text like concat('%',:searchTerm, '%')", Saying.class).setMaxResults(limit);
+		query.setParameter("searchTerm", searchTerm);
+		
+		@SuppressWarnings("unchecked")
+		List<Saying> results = (List<Saying>) query.getResultList();
+		return results;
+	}
+	
 }
+

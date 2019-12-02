@@ -5,6 +5,8 @@ $(document).ready(function() {
 	console.log("ready!");
 	loadTagsFromDBForAutocomplete("api/tag/findAll");
 	tags.clear();
+	autocomplete($("#searchTerm"));
+	$("#loader").hide();
 });
 
 function addTag() {
@@ -17,18 +19,21 @@ function loadTagsFromDBForAutocomplete(apiUrl) {
 	$.ajax({
 		url : apiUrl,
 		success : function(data) {
-			
-			$("#tagAutocomplete").autocomplete({
-				source : function(request, response) {
-			        var results = $.ui.autocomplete.filter(
-			        		data.map(function(elem){return elem.name}), request.term);
-			        
-			        response(results.slice(0, 10));
-			    }
-			});
-			
+
+			$("#tagAutocomplete").autocomplete(
+					{
+						source : function(request, response) {
+							var results = $.ui.autocomplete.filter(data
+									.map(function(elem) {
+										return elem.name
+									}), request.term);
+
+							response(results.slice(0, 10));
+						}
+
+					});
 		}
-	
+
 	});
 }
 
@@ -118,5 +123,14 @@ function afterErrors(status){
 	$("#warning").text(status);
 	$("#success").text("");
 }
+
+
+
+
+
+
+
+
+
 
 

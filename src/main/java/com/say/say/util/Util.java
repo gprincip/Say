@@ -16,8 +16,8 @@ import org.springframework.util.StringUtils;
 
 import com.google.gson.Gson;
 import com.say.say.model.Saying;
-import com.say.say.model.TimeUnit;
 import com.say.say.model.UserBean;
+import com.say.say.search.SearchResult;
 
 public class Util {
 
@@ -72,14 +72,6 @@ public class Util {
 		scanner.close();
 		
 		return propsMap;
-	}
-	
-	public static Saying jsonToSaying(String json) {
-		
-		Gson gson = new Gson();
-		Saying saying = gson.fromJson(json, Saying.class);
-		return saying;
-		
 	}
 
 	public static void setUserdata(UserBean user, HttpServletRequest request) {

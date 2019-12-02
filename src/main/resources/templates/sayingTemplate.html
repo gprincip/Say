@@ -1,0 +1,19 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>Sayings</title>
+<script src="js/libs/jquery-3.4.1.min.js"></script>
+<script src="js/libs/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="css/libs/jquery-ui.min.css">
+<link rel="stylesheet" href="css/autocomplete.css">
+<script src="js/sayings.js"></script>
+<script src="js/searchSayings.js"></script>
+<link rel="stylesheet" href="css/sayings.css">
+</head>
+
+Author: <span th:text="${saying.author}"></span> </br>
+Date: <span th:text="${saying.date}"></span> </br>
+Text: <span th:text="${saying.text}"></span> </br>
+
+</html>
