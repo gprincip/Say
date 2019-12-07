@@ -43,15 +43,14 @@ function beforeSubmit(){
 
 //format tag set for displaying
 function formatTagsForDisplay(tags){
-	
 	var formattedTags = "";
 	var tagList = Array.from(tags);
 	
 	for(var i = 0; i<tagList.length; i++){
 		if(formattedTags == ""){
-			formattedTags += tagList[i];
+			formattedTags += "<div class='tag'>" + tagList[i] + " <a href='#' onClick='removeTag(`" + tagList[i].toString() + "`)'><img src='images/removeTag.png' style='width:10px; height:10px;'></a></div>";
 		}else{
-			formattedTags += ", " + tagList[i];
+			formattedTags += ", <div class='tag'>" + tagList[i] + " <a href='#' onClick='removeTag(`" + tagList[i].toString() + "`)'><img src='images/removeTag.png' style='width:10px; height:10px;'></a></div>";
 		}
 	}
 	return formattedTags;
@@ -124,7 +123,12 @@ function afterErrors(status){
 	$("#success").text("");
 }
 
-
+function removeTag(tagName){
+	
+	tags.delete(tagName);
+	$("#addedTagsList").html(formatTagsForDisplay(tags));
+	
+}
 
 
 

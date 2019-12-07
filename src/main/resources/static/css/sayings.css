@@ -29,6 +29,7 @@
 	border: 1px solid red;
 	width: 300px;
 	height: 150px;
+	background-image: https://icon-library.net/images/icon-small/icon-small-9.jpg;
 }
 
 .clearfix {
@@ -78,5 +79,8 @@
 	
 }
 
-
+.tag{
+	display: inline-block;
+	
+}
 
