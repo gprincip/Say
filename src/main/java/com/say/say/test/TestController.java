@@ -5,13 +5,12 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.say.say.model.Saying;
-import com.say.say.search.DBSearcher;
+import com.say.say.search.ISearcher;
 import com.say.say.search.SearchResult;
 import com.say.say.service.SayingSearcher;
 import com.say.say.service.SayingService;
@@ -26,7 +25,7 @@ public class TestController {
 	SayingSearcher searcher;
 	
 	@Autowired
-	DBSearcher dbSearcher;
+	ISearcher dbSearcher;
 	
 	@Autowired
 	SayingService sService;
@@ -60,7 +59,6 @@ public class TestController {
 	
 	@RequestMapping(value="/search/sText")
 	public String sayingsByText(@RequestParam(value="searchTerm") String searchTerm, @RequestParam(value="fetchQuantity") Integer fetchQuantity) {
-		
 		SearchResult result = dbSearcher.search(searchTerm, fetchQuantity, null);
 		return JsonUtil.searchResultToJson(result);
 	}
