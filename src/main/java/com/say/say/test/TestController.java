@@ -1,5 +1,6 @@
 package com.say.say.test;
 
+import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.say.say.model.Saying;
+import com.say.say.model.UserBean;
 import com.say.say.search.ISearcher;
 import com.say.say.search.SearchResult;
 import com.say.say.service.SayingSearcher;
@@ -29,6 +31,9 @@ public class TestController {
 	
 	@Autowired
 	SayingService sService;
+	
+	@Autowired
+	UserBean userBean;
 	
 	@RequestMapping(value="/testIpExtraction")
 	public void getClientIp(HttpServletRequest request) {
@@ -69,4 +74,11 @@ public class TestController {
 		return sService.getSayingsByTextLimited("q", 4);
 		
 	}
+	
+	@RequestMapping(value="/getPrincipal")
+	public String getprincipal(Principal p) {
+		return p.getName();
+	}
+	
+	
 }

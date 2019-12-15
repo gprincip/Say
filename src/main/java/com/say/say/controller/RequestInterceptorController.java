@@ -1,4 +1,4 @@
-package com.say.say.controller.rest;
+package com.say.say.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

@@ -2,6 +2,10 @@
 	1.6. Defining event listener inside success branch from json call don't work, fix it
 
 8. Create users and authorization/authentication
+	8.1. create basic authentication with spring security
+	8.2. add DB authentication
+	8.3. customize authentication FE 
+	8.4. connect sayings and users
 
 9. Protect REST (or check if it is needed)
 
@@ -64,3 +68,6 @@ public List<Integer> getSayingsContainingExactlyGivenTags(@Param(value="tagIds")
 6. Make logging to a file
 
 7. Set hibernate logging properly
+
+8.1. create basic authentication with spring security
+

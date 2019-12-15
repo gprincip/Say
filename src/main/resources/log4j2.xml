@@ -36,6 +36,10 @@
 			<AppenderRef ref="LogToFile" />
 			<AppenderRef ref="LogToConsole" />
 		</Logger>
+		<Logger name="org.springframework.security.authentication" level="debug" additivity="false">
+			<AppenderRef ref="LogToFile" />
+			<AppenderRef ref="LogToConsole" />
+		</Logger>
 		<Root level="error">
 			<AppenderRef ref="LogToFile" />
 			<AppenderRef ref="LogToConsole" />

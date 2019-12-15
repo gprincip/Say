@@ -1,25 +1,37 @@
 package com.say.say.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
-//@EnableWebSecurity
+@Configuration
+@EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+	@Autowired
+	AuthenticationSuccessHandlerImpl successHandler;
+	
 	 @Autowired
 	    public void configureGlobal(AuthenticationManagerBuilder auth) 
 	      throws Exception {
 		
 		  auth.inMemoryAuthentication().withUser("user")
-		  .password("password").roles("USER");
+		  .password("{noop}password").roles("USER"); //noop defines that no password encoder is used
 		 
 	    }
 	
 	 protected void configure(HttpSecurity http) throws Exception {
 		    http.authorizeRequests()
-		      .anyRequest().permitAll();
+		    .antMatchers("/sayings").hasRole("USER")
+		    .antMatchers("/api/**").permitAll()
+		    .and()
+		    .formLogin()
+		    .successHandler(successHandler)
+		    .and()
+		    .csrf().disable();
+		    
 		}
 }

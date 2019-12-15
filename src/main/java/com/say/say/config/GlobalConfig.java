@@ -25,6 +25,7 @@ public class GlobalConfig {
 	private static final String POSTING_COOLDOWN_KEY = "post_cooldown.miliseconds";
 	private static final String POSTING_COOLDOWN_FORMAT_KEY = "post_cooldown.format.units";
 	private static final String POSTING_COOLDOWN_UNITS_NUMBER = "post_cooldown.format.takeFirstNUnits";
+	private static final String DEFAULT_AUTHENTICATION_SUCCESS_URL = "authentication.defaultSuccessURL";
 	
 	public void init() {
 		
@@ -54,5 +55,11 @@ public class GlobalConfig {
 	public String getNumberOfUnitsForCooldownTimeDisplay() {
 		return getProperty(POSTING_COOLDOWN_UNITS_NUMBER);
 	}
+	
+	public String getDefaultAuthenticationSuccessUrl() {
+		return getProperty(DEFAULT_AUTHENTICATION_SUCCESS_URL);
+	}
+	
+	
 	
 }
