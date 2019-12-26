@@ -14,18 +14,22 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Autowired
 	AuthenticationSuccessHandlerImpl successHandler;
 	
+	public static String[] roles = {"USER", "ADMIN"};
+	
 	 @Autowired
 	    public void configureGlobal(AuthenticationManagerBuilder auth) 
 	      throws Exception {
 		
-		  auth.inMemoryAuthentication().withUser("user")
-		  .password("{noop}password").roles("USER"); //noop defines that no password encoder is used
+		  auth.inMemoryAuthentication()
+		  .withUser("user").password("{noop}password").roles("USER") //noop defines that no password encoder is used
+		  .and()
+		  .withUser("admin").password("{noop}password").roles("ADMIN");
 		 
 	    }
 	
 	 protected void configure(HttpSecurity http) throws Exception {
 		    http.authorizeRequests()
-		    .antMatchers("/sayings").hasRole("USER")
+		    .antMatchers("/sayings").hasAnyRole(roles)
 		    .antMatchers("/api/**").permitAll()
 		    .and()
 		    .formLogin()

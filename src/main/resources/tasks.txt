@@ -4,8 +4,10 @@
 8. Create users and authorization/authentication
 	8.1. create basic authentication with spring security
 	8.2. add DB authentication
-	8.3. customize authentication FE 
-	8.4. connect sayings and users
+	8.3. custom login form
+	8.4. custom registration form
+	8.5. (REQUIRED task 28.) create secure registration logic (activation link/code sent to email)
+	8.5. connect sayings and users
 
 9. Protect REST (or check if it is needed)
 
@@ -43,6 +45,8 @@ data currently in the search box inserted by user (if needed at all, for now thi
 26. Implement likes for posts and comments
 
 27. Implement comments
+
+28. Create email sender
 
 ==========================RESOLVED TASKS============================
 

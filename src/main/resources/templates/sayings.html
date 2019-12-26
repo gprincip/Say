@@ -41,6 +41,12 @@
 		<div id="loaderWrapper"><img id = "loader" src="images/loader.gif"></img></div> </br></br>
 	</div>
 
+	<div id="loggedInInfo">
+		<p th:text="${userBean.userIp}"></p>
+		<p th:text="${userBean.username}"></p>
+	</div>
+
 </div>
 
 </html>
+

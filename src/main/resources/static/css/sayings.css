@@ -84,3 +84,9 @@
 	
 }
 
+#loggedInInfo{
+	display: inline;
+	float: right;
+	border: 1px solid red;
+}
+

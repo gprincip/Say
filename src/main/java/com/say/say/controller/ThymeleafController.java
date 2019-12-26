@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.say.say.dao.repository.SayingRepository;
 import com.say.say.dao.repository.TagRepository;
 import com.say.say.model.Saying;
+import com.say.say.model.UserBean;
 import com.say.say.service.SayingService;
 
 /**
@@ -31,6 +32,9 @@ public class ThymeleafController {
 	
 	@Autowired
 	SayingService sayingService;
+	
+	@Autowired
+	UserBean userBean;
 	
 	@RequestMapping(path="/testThymeleaf")
 	public ModelAndView testThymeleaf() {
@@ -60,7 +64,7 @@ public class ThymeleafController {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("sayings");
 		
-		//mav.addObject("sayings", null);
+		mav.addObject("userBean", userBean);
 		
 		return mav;
 	}

@@ -1,12 +1,25 @@
 package com.say.say.model;
 
+import java.io.Serializable;
+import java.security.Principal;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.nimbusds.oauth2.sdk.util.StringUtils;
+import com.say.say.dao.repository.UserRepository;
+
 /**
  * Session scope bean that holds info about current logged in user
  * @author gavrilo
  *
  */
-public class UserBean {
+public class UserBean implements Serializable{
 
+	private static final long serialVersionUID = 1L;
+	
+	@Autowired
+	UserRepository userRepo;
+	
 	private String userIp;
 	private String username;
 	private User user;
@@ -40,6 +53,11 @@ public class UserBean {
 	}
 
 	public User getUser() {
+		
+		if(user == null && StringUtils.isNotBlank(username)) {
+			user = userRepo.findByUsername(username); //load user from DB
+		}
+		
 		return user;
 	}
 

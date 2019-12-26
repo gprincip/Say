@@ -42,7 +42,7 @@ public class SayingController {
 	 * Current user
 	 */
 	@Autowired
-	UserBean user;
+	UserBean userBean;
 	
 	@Autowired
 	UserService userService;
@@ -80,9 +80,11 @@ public class SayingController {
 	@RequestMapping(path="/validateAndSaveSaying", consumes={"application/json"}, method=RequestMethod.POST)
 	public String validateAndSaveSaying(@RequestBody String sayingJson) {
 		
-		String userIp = user.getUserIp();
+		String userIp = userBean.getUserIp();
 		String waitingTimeInMilliseconds = userService.timeUntilPostingCooldownExpired(userIp);
 		Saying saying = JsonUtil.jsonToSaying(sayingJson);
+		saying.setUser(userBean.getUser());
+		
 		
 		String timeUnits = config.getPostingCooldownFormat();
 		int numUnits = Integer.parseInt(config.getNumberOfUnitsForCooldownTimeDisplay());

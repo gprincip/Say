@@ -105,6 +105,12 @@ public class Saying{
 	public void setDate(Date date) {
 		this.date = date;
 	}
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
 
 	@Override
 	public String toString() {

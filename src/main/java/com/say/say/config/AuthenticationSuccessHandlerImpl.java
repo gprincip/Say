@@ -31,7 +31,7 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
 		
-		Util.setUserdata(userBean, authentication); //ERROR: username is not set to userBean for some reason
+		Util.setUserdata(userBean, authentication, request);
 		
 		proceed(request, response, authentication);
 	}

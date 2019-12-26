@@ -91,6 +91,10 @@ public class Util {
 	private static void initializeUser(UserBean user, HttpServletRequest request) {
 		String userIp = extractIpFromServletRequest(request);
 		user.setUserIp(userIp);
+		
+		if(request.getUserPrincipal() != null) {
+			user.setUsername(request.getUserPrincipal().getName());
+		}
 	}
 
 	/**
@@ -123,11 +127,12 @@ public class Util {
 		return longList;
 	}
 
-	public static void setUserdata(UserBean userBean, Authentication authentication) {
+	public static void setUserdata(UserBean userBean, Authentication authentication, HttpServletRequest request) {
 		
 		userBean.setUsername(authentication.getName());
-		authentication.getAuthorities();
-		
+		if(request.getUserPrincipal() != null) {
+			userBean.setUsername(request.getUserPrincipal().getName());
+		}
 	}
 
 }
