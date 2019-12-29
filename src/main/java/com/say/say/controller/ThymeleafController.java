@@ -87,6 +87,10 @@ public class ThymeleafController {
 		
 	}
 	
+	@RequestMapping(path="/login")
+	public String getLogin() {
+		return "login";
+	}
 
 }
 
