@@ -6,6 +6,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailSender;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,6 +36,9 @@ public class TestController {
 	
 	@Autowired
 	UserBean userBean;
+	
+	@Autowired
+	MailSender mailSender;
 	
 	@RequestMapping(value="/testIpExtraction")
 	public void getClientIp(HttpServletRequest request) {
@@ -80,5 +85,29 @@ public class TestController {
 		return p.getName();
 	}
 	
+	@RequestMapping(value="/sendEmail")
+	public void sendEmail() {
+		
+		SimpleMailMessage message = new SimpleMailMessage();
+		message.setFrom("gprincip132@gmail.com");
+		message.setTo("pcelalala@gmail.com");
+		message.setSubject("Test subject");
+		message.setText("Test text");
+		
+		mailSender.send(message);
+		
+	}
+	
 	
 }
+
+
+
+
+
+
+
+
+
+
+
