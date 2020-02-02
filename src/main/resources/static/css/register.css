@@ -1,0 +1,6 @@
+
+#registerDiv{
+	border: 1px solid red;
+	padding: 10px;
+	position: absolute; /* so border can wrap this div */
+}

@@ -1,0 +1,108 @@
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<title>Registration form</title>
+<link rel="stylesheet" href="css/register.css">
+<script src="js/libs/jquery-3.4.1.min.js"></script>
+</head>
+<body>
+	<div id="registerDiv">
+	
+			<table>
+				<tr>
+					<td><label for="username">Username</label></td>
+					<td><input type="text" id="username" name="username" /></td>
+				</tr>
+				<tr>
+					<td><label for="password">Password</label></td>
+					<td><input type="password" id="password" name="password" /></td>
+				</tr>
+				<tr>
+					<td><label for="email">Email</label></td>
+					<td><input type="email" id="email" name="email" /></td>
+				</tr>
+			</table>
+
+			<div class="form-actions">
+				<button onclick="validate()" class="btn">Register</button>
+			</div>
+		
+		<div id="messages">
+		
+		
+		</div>
+		
+	</div>
+	
+	<script>
+	
+	function validate(){
+		
+		//js validation
+		var username = $("#username").val();
+		var password = $("#password").val();
+		var email = $("#email").val();
+		
+		$("#messages").empty(); //clear previous content
+		var messagesDiv = $("#messages");
+		var valid = true;
+		
+		if(username == ''){
+			var msg1 = document.createElement("p");
+			msg1.innerHTML = "Username is mandatory field!";
+			messagesDiv.append(msg1);
+			valid = false;
+		}
+		
+		if(password == ''){
+			var msg2 = document.createElement("p");
+			msg2.innerHTML = "Password is mandatory field!";
+			messagesDiv.append(msg2);
+			valid = false;
+		}
+		
+		if(email == ''){
+			var msg3 = document.createElement("p");
+			msg3.innerHTML = "Email is mandatory field!";
+			messagesDiv.append(msg3);
+			valid = false;
+		}
+		
+		//backend validation and registration
+		if (valid) {
+				var registerUrl = "http://localhost:8080/say/register/user?username="
+						+ username + "&password=" + password + "&email=" + email;
+
+				$.post(registerUrl, function(data) {
+					var errors = new Array();
+					
+					for(var i = 0; i < data.length; i++){
+						if(data[i].messageType == 'ERROR'){
+							errors.push(data[i]);		
+						}
+					}
+					
+					//display error messages
+					if(errors.length > 0){
+						
+						for(var i = 0; i < errors.length; i++){
+							var msg = document.createElement("p");
+							msg.innerHTML = errors[i].text;
+							messagesDiv.append(msg);
+						}
+						
+					}else{
+						//successful registration
+						var msg = document.createElement("p");
+						msg.innerHTML = "Email has been sent to your email address. Fallow the link in the email to activate your account."
+						messagesDiv.append(msg);
+						
+					}
+					
+				});
+
+			}
+		}
+	</script>
+	
+</body>
+</html>

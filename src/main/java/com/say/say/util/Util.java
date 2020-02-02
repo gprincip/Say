@@ -13,12 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
-import org.springframework.util.StringUtils;
-
-import com.google.gson.Gson;
-import com.say.say.model.Saying;
+import com.nimbusds.oauth2.sdk.util.StringUtils;
+import com.say.say.model.RegistrationStatus;
 import com.say.say.model.UserBean;
-import com.say.say.search.SearchResult;
 
 public class Util {
 
@@ -60,9 +57,9 @@ public class Util {
 				
 				String line = scanner.nextLine();
 				String keyVal[] = line.split("=");
-				if(keyVal.length == 2) {
+				if(keyVal.length == 2 && StringUtils.isNotBlank(keyVal[0]) && !keyVal[0].startsWith("#")) {
 					propsMap.put(keyVal[0], keyVal[1]);
-				}else if(!keyVal[0].startsWith("#")) {
+				}else if(StringUtils.isNotBlank(keyVal[0]) && !keyVal[0].startsWith("#")) {
 					log.error("Error parsing key-value pair: " + line + ". It will be skipped.");
 				}
 				
@@ -104,7 +101,7 @@ public class Util {
 	 */
 	private static boolean isNotInitialized(UserBean user) {
 		
-		if(StringUtils.isEmpty(user.getUserIp())){
+		if(StringUtils.isBlank(user.getUserIp())){
 			return true;
 		}else return false;
 		

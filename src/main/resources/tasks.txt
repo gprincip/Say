@@ -2,7 +2,6 @@
 	1.6. Defining event listener inside success branch from json call don't work, fix it
 
 8. Create users and authorization/authentication
-	8.1. create basic authentication with spring security
 	8.2. add DB authentication
 	8.4. custom registration form
 	8.5. (REQUIRED task 28.) create secure registration logic (activation link/code sent to email)
@@ -44,6 +43,17 @@ data currently in the search box inserted by user (if needed at all, for now thi
 26. Implement likes for posts and comments
 
 27. Implement comments
+
+29. When app is restarted, saved session data from before is not loaded correctly and exception is thrown.
+	
+	java.lang.ClassCastException: cannot assign instance of java.lang.StackTraceElement to field java.util.Collections$UnmodifiableList.list of type java.util.List in instance of java.util.Collections$UnmodifiableList
+	at java.io.ObjectStreamClass$FieldReflector.setObjFieldValues(ObjectStreamClass.java:2287)...
+	
+	...[org.apache.catalina.session.StandardManager] log:175 : Exception loading sessions from persistent storage
+	
+	It probably have to do with logged in user data, since this happens when server is restarted during user is logged in, and on the next start this exception is thrown.
+
+30. Implement the logic to load application context dinamically (localhost/somethingElse) based on the dev or prod environment
 
 ==========================RESOLVED TASKS============================
 

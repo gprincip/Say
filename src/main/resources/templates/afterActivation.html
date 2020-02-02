@@ -1,0 +1,13 @@
+<html xmlns:th="https://www.thymeleaf.org">
+
+<head></head>
+
+<body>
+
+	<span th:each="message: ${messages}">
+		<p th:text="${message.text}"></p>
+	</span>
+	
+</body>
+
+</html>

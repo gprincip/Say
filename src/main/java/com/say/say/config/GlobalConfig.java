@@ -49,7 +49,7 @@ public class GlobalConfig {
 		
 	}
 	
-	private String getProperty(String key) {
+	public String getProperty(String key) {
 		return (propertyMap.get(key));
 	}
 

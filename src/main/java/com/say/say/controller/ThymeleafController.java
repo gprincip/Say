@@ -92,31 +92,10 @@ public class ThymeleafController {
 		return "login";
 	}
 
+	@RequestMapping(path="/register")
+	public String getRegister() {
+		return "register";
+	}
+	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
