@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import com.google.gson.JsonObject;
 
-public class SearchResult implements Serializable{
+public class SayingsSearchResult implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	

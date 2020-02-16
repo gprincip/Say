@@ -13,11 +13,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.say.say.model.Saying;
+import com.say.say.model.SayingsSearchParameters;
 import com.say.say.model.UserBean;
 import com.say.say.search.ISearcher;
-import com.say.say.search.SearchResult;
+import com.say.say.search.SayingsSearchResult;
 import com.say.say.service.SayingSearcher;
 import com.say.say.service.SayingService;
+import com.say.say.service.email.MailSenderWrapper;
 import com.say.say.util.JsonUtil;
 import com.say.say.util.Util;
 
@@ -38,7 +40,7 @@ public class TestController {
 	UserBean userBean;
 	
 	@Autowired
-	MailSender mailSender;
+	MailSenderWrapper mailSender;
 	
 	@RequestMapping(value="/testIpExtraction")
 	public void getClientIp(HttpServletRequest request) {
@@ -69,7 +71,7 @@ public class TestController {
 	
 	@RequestMapping(value="/search/sText")
 	public String sayingsByText(@RequestParam(value="searchTerm") String searchTerm, @RequestParam(value="fetchQuantity") Integer fetchQuantity) {
-		SearchResult result = dbSearcher.search(searchTerm, fetchQuantity, null);
+		SayingsSearchResult result = dbSearcher.searchSayingsByText(new SayingsSearchParameters(searchTerm, fetchQuantity));
 		return JsonUtil.searchResultToJson(result);
 	}
 	

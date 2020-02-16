@@ -53,13 +53,15 @@ function autocomplete(input){
 		
 		jQuery.get({
 			
-			url:"test/search/" + "sText" + "?searchTerm=" + $("#searchTerm").val() + "&fetchQuantity=" + fetchQuantity,
+			url:"search/" + "sText" + "?searchTerm=" + $("#searchTerm").val() + "&fetchQuantity=" + fetchQuantity,
 			success: function(searchResult){
 				searchTerm = JSON.parse(searchResult).searchTerm;
 				
 				/*if(searchTerm !== $("#searchTerm")){
 					autocomplete(input);
 				}*/
+				
+				console.log(searchResult);
 				
 				values = getLabelsForAutocomplete(JSON.parse(searchResult).jsonData.results);
 				

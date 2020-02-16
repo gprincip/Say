@@ -1,6 +1,6 @@
 package com.say.say.search;
 
-import java.util.List;
+import com.say.say.model.SayingsSearchParameters;
 
 /**
  * Interface used as a base specification of functionalities for </br>
@@ -14,6 +14,6 @@ import java.util.List;
  */
 public interface ISearcher {
 
-	public SearchResult search(String searchTerm, int fetchQuantity, List<SearchType> entities);
+	public SayingsSearchResult searchSayingsByText(SayingsSearchParameters searchParameters);
 	
 }

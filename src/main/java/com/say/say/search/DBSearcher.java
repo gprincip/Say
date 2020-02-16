@@ -12,6 +12,7 @@ import com.google.gson.JsonObject;
 import com.say.say.dao.repository.SayingRepository;
 import com.say.say.dao.repository.TagRepository;
 import com.say.say.model.Saying;
+import com.say.say.model.SayingsSearchParameters;
 import com.say.say.service.SayingService;
 
 @Component
@@ -29,10 +30,13 @@ public class DBSearcher implements ISearcher{
 	TagRepository tagRepo;
 	
 	@Override
-	public SearchResult search(String searchTerm, int fetchQuantity, List<SearchType> searchTypes) {
+	public SayingsSearchResult searchSayingsByText(SayingsSearchParameters searchParameters) {
+		
+		String searchTerm = searchParameters.getSearchTerm();
+		int fetchQuantity = searchParameters.getFetchQuantity();
 		
 		List<Saying> sayingsContainingText = sayingService.getSayingsByTextLimited(searchTerm, fetchQuantity);
-		SearchResult result = new SearchResult();
+		SayingsSearchResult result = new SayingsSearchResult();
 		result.setSearchType(SearchType.SAYING_BY_TEXT.getSearchPrefix());
 		result.setSearchTerm(searchTerm);
 		JsonObject searchResult = new JsonObject();

@@ -1,12 +1,6 @@
 1. Implement search functionality
 	1.6. Defining event listener inside success branch from json call don't work, fix it
 
-8. Create users and authorization/authentication
-	8.2. add DB authentication
-	8.4. custom registration form
-	8.5. (REQUIRED task 28.) create secure registration logic (activation link/code sent to email)
-	8.5. connect sayings and users
-
 9. Protect REST (or check if it is needed)
 
 10. Use Cookies or similar to pre-fill some data in the sayings form
@@ -30,13 +24,7 @@ data currently in the search box inserted by user (if needed at all, for now thi
 
 20. Think about removing jquery autocomplete and making custom autocomplete more reusable and replacing jquery's ac
 
-21. Move backend searching logic to some other controller. Currently it is implemented in test controller.
-
-22. DBSearcher currently don't use third parameter List<SearchType>, find usage for it or discard it
-
 23. Make some kind of a CMS for the most important parts of the app, so it can be easily changed
-
-24. Make a template for displaying a saying (templates/sayingTemplate.html)
 
 25. Implement reputation for users
 
@@ -54,6 +42,8 @@ data currently in the search box inserted by user (if needed at all, for now thi
 	It probably have to do with logged in user data, since this happens when server is restarted during user is logged in, and on the next start this exception is thrown.
 
 30. Implement the logic to load application context dinamically (localhost/somethingElse) based on the dev or prod environment
+
+31. Move repo to github, and make issues for all tasks
 
 ==========================RESOLVED TASKS============================
 
@@ -80,9 +70,20 @@ public List<Integer> getSayingsContainingExactlyGivenTags(@Param(value="tagIds")
 
 7. Set hibernate logging properly
 
-8.1. create basic authentication with spring security
+8. Create users and authorization/authentication
+	8.1. create basic authentication with spring security
+	8.2. add DB authentication
+	8.4. custom registration form
+	8.5. (REQUIRED task 28.) create secure registration logic (activation link/code sent to email)
+	8.5. connect sayings and users
 
 8.3. custom login form
 
 28. Create email sender
+
+24. Make a template for displaying a saying (templates/sayingTemplate.html)
+
+21. Move backend searching logic to some other controller. Currently it is implemented in test controller.
+
+22. DBSearcher currently don't use third parameter List<SearchType>, find usage for it or discard it
 
