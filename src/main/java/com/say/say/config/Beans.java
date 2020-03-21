@@ -14,6 +14,8 @@ import com.say.say.search.DBSearcher;
 import com.say.say.search.ISearcher;
 import com.say.say.service.RegistrationService;
 import com.say.say.service.RegistrationServiceImpl;
+import com.say.say.sql.SqlExecutorService;
+import com.say.say.sql.SqlExecutorServiceImpl;
 
 @Configuration
 public class Beans {
@@ -45,6 +47,11 @@ public class Beans {
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
+	}
+	
+	@Bean
+	public SqlExecutorService sqlExecutorService() {
+		return new SqlExecutorServiceImpl();
 	}
 	
 }

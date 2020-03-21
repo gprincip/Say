@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.nimbusds.oauth2.sdk.util.StringUtils;
 import com.say.say.dao.repository.UserRepository;
+import com.say.say.sql.SqlExecutorService;
 
 /**
  * Session scope bean that holds info about current logged in user
@@ -19,6 +20,9 @@ public class UserBean implements Serializable{
 	
 	@Autowired
 	UserRepository userRepo;
+	
+	@Autowired
+	SqlExecutorService sqlExecutorService;
 	
 	private String userIp;
 	private String username;
@@ -55,7 +59,7 @@ public class UserBean implements Serializable{
 	public User getUser() {
 		
 		if(user == null && StringUtils.isNotBlank(username)) {
-			user = userRepo.findByUsername(username); //load user from DB
+			user = userRepo.findUserByUsername(username); //load user from DB
 		}
 		
 		return user;

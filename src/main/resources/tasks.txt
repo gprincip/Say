@@ -7,7 +7,7 @@
 
 11. Fix database - review constraints, associations, table names... (saying's author should be foreign key to User)
 
-12. Maybe externalize sql queries?
+12. Maybe externalize sql queries? (ON HOLD)
 
 13. Consider changing searching mechanism to utilize all search types without checking some radio button first.
 For example like on facebook, when you type something it searches for names, locations, groups and more at the

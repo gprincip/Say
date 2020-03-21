@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqlMap>
+
+	<sqls>
+		<entry>
+		
+			<key>getLastSayingFromIp</key>
+			<value>
+				select * from saying
+				where client_ip = :ip
+				order by date DESC
+				limit 1
+			</value>
+			
+		</entry>
+		
+		<entry>
+		
+			<key>getSayingsContainingAnyGivenTags</key>
+			<value>
+				select distinct * from saying s
+				where id in (
+					select saying_id from saying_tags where saying_id = s.id
+					and tags_id in (:tagIds)
+				)
+			</value>
+		
+		</entry>
+		
+		<entry>
+		
+			<key>getSayingsByText</key>
+			<value>
+				select * from saying
+				where text like concat('%',:searchTerm, '%')
+			</value>
+		
+		</entry>		
+		
+		<entry>
+		
+			<key>getSayingsContainingExactlyGivenTags</key>
+			<value>
+				select saying_id
+				from saying_tags
+				group by saying_id
+				having count(distinct case when tags_id in (:tagIds) then tags_id else 0 end) = :tagCount 
+				and min(case when tags_id in (:tagIds) then tags_id else 0 end) > 0
+			</value>
+		
+		</entry>
+
+		<entry>
+		
+			<key>findTagByName</key>
+			<value>
+				select * from tag where name = :name
+			</value>
+		
+		</entry>
+
+		<entry>
+		
+			<key>findUserByUsername</key>
+			<value>
+				select * from user where username = :username
+			</value>
+		
+		</entry>
+		
+
+		<entry>
+		
+			<key>findUserByEmail</key>
+			<value>
+				select * from user where email = :email
+			</value>
+		
+		</entry>
+
+		
+	</sqls>
+
+</sqlMap>
+

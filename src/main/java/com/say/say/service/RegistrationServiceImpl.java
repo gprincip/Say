@@ -42,12 +42,12 @@ public class RegistrationServiceImpl implements RegistrationService{
 		
 		List<BackendMessage> messages = new ArrayList<BackendMessage>();
 		
-		if(userRepo.findByUsername(username) != null) {
+		if(userRepo.findUserByUsername(username) != null) {
 			messages.add(new BackendMessage("Username already exists", MessageType.ERROR));
 			log.error("Cannot register user: username already exists!");
 		}
 		
-		if(userRepo.findByEmail(email).size() > 0) {
+		if(userRepo.findUserByEmail(email).size() > 0) {
 			messages.add(new BackendMessage("Email already exists", MessageType.ERROR));
 			log.error("Cannot register user: email already exists!");
 		}
@@ -88,7 +88,7 @@ public class RegistrationServiceImpl implements RegistrationService{
 
 	private void sendActivationEmail(String username, String email) {
 		
-		User user = userRepo.findByUsername(username);
+		User user = userRepo.findUserByUsername(username);
 		SimpleMailMessage message = new SimpleMailMessage();
 		message.setTo(email);
 		message.setFrom(config.getProperty("mail.activationEmailFrom"));

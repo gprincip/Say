@@ -6,7 +6,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,6 +19,8 @@ import com.say.say.search.SayingsSearchResult;
 import com.say.say.service.SayingSearcher;
 import com.say.say.service.SayingService;
 import com.say.say.service.email.MailSenderWrapper;
+import com.say.say.sql.SqlExecutorService;
+import com.say.say.sql.SqlReader;
 import com.say.say.util.JsonUtil;
 import com.say.say.util.Util;
 
@@ -41,6 +42,12 @@ public class TestController {
 	
 	@Autowired
 	MailSenderWrapper mailSender;
+	
+	@Autowired
+	SqlReader sqlReader;
+	
+	@Autowired
+	SqlExecutorService sqlExecutor;
 	
 	@RequestMapping(value="/testIpExtraction")
 	public void getClientIp(HttpServletRequest request) {
@@ -100,14 +107,17 @@ public class TestController {
 		
 	}
 	
+	@RequestMapping(value="/getSql")
+	public String getSql(@RequestParam(value = "key") String key) {
+		return sqlReader.getSqlQuery(key);
+	}
+	
+	@RequestMapping(value="/testSqlExecutor")
+	public void testSqlExecutor() {
+		sqlExecutor.test();
+	}
 	
 }
-
-
-
-
-
-
 
 
 
