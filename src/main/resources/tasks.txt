@@ -45,6 +45,8 @@ data currently in the search box inserted by user (if needed at all, for now thi
 
 31. Move repo to github, and make issues for all tasks
 
+32. Create bigger set of mock data to populate database
+
 ==========================RESOLVED TASKS============================
 
 2. Fix layout glitches

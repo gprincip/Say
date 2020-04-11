@@ -35,13 +35,64 @@ function getLabelsForAutocomplete(resultsJson){
 	}
 }, 3000);*/
 
-function autocomplete(input){
-	
-	//, getLabelsForAutocomplete(jsonResult.jsonData.results)
-	
+//more-less reusable autocomplete search which can get improved to be more reusable
+function autocomplete(input, dataProvidingAPIEndpoint, fetchQuantity){
+		
 	var currentFocus;
 	var values;
 	var searchTerm; 
+	
+	input[0].addEventListener("keydown", function(e){
+
+		var x = document.getElementById(this.id + "autocomplete-list");
+		if(x) x = x.getElementsByTagName("div");
+		if(e.keyCode == 40){ // down key
+			currentFocus++;
+			addActive(x);
+		}else if(e.keyCode == 38){ // up key
+			currentFocus--;
+			addActive(x);
+		}else if(e.keyCode == 13){ // return
+			e.preventDefault(); // prevent form from submitting
+			if(currentFocus > -1){
+				if(x) x[currentFocus].click();
+			}
+		}
+		
+	});
+	
+	function addActive(x){
+		
+		if (!x) return false;
+		removeActive(x);
+		if(currentFocus >= x.length){
+			currentFocus = 0;
+		}
+		if(currentFocus < 0){
+			currentFocus = (x.length - 1);
+		}
+		x[currentFocus].classList.add("autocomplete-active");
+		
+	}
+	
+	function closeAllLists(element){
+		var x = document.getElementsByClassName("autocomplete-items");
+		for(var i=0; i< x.length; i++){
+			if(element != x[i] && element != input){
+				x[i].parentNode.removeChild(x[i]);
+			}
+		}
+	}
+	
+	document.addEventListener("click", function(e){
+		closeAllLists(e.target);
+	});
+	
+	function removeActive(x) {
+	    for (var i = 0; i < x.length; i++) {
+	      x[i].classList.remove("autocomplete-active");
+	    }
+	}
 	
 	input[0].addEventListener("input", function(e){
 		
@@ -52,14 +103,11 @@ function autocomplete(input){
 		}
 		
 		jQuery.get({
-			
-			url:"search/" + "sText" + "?searchTerm=" + $("#searchTerm").val() + "&fetchQuantity=" + fetchQuantity,
+			//dataProvidingAPIEndpoint is taken as parameter
+			//and input field has always to have id "searchTerm"
+			url: dataProvidingAPIEndpoint + "?searchTerm=" + $("#searchTerm").val() + "&fetchQuantity=" + fetchQuantity,
 			success: function(searchResult){
 				searchTerm = JSON.parse(searchResult).searchTerm;
-				
-				/*if(searchTerm !== $("#searchTerm")){
-					autocomplete(input);
-				}*/
 				
 				console.log(searchResult);
 				
@@ -73,7 +121,7 @@ function autocomplete(input){
 				currentFocus = -1;
 				
 				a = document.createElement("DIV");
-				a.setAttribute("id", this.id + "autocomplete-list");
+				a.setAttribute("id", input[0].id + "autocomplete-list");
 				a.setAttribute("class", "autocomplete-items");
 				input[0].parentNode.appendChild(a);
 				
@@ -109,58 +157,7 @@ function autocomplete(input){
 				}
 				$("#loader").hide();
 
-				//not working currently. Seems like we cannot define function like this in asynchronous call
-				input[0].addEventListener("keydown", function(e){
-
-					var x = document.getElementById(this.id + "autocomplete-list");
-					if(x) x = x.getElementsByTagName("div");
-					if(e.keyCode == 40){ // down key
-						currentFocus++;
-						addActive(x);
-					}else if(e.keyCode == 38){ // up key
-						currentFocus--;
-						addActive(x);
-					}else if(e.keyCode == 13){ // return
-						e.preventDefault(); // prevent form from submitting
-						if(currentFocus > -1){
-							if(x) x[currentFocus].click();
-						}
-					}
-					
-				});
 				
-				function addActive(x){
-					
-					if (!x) return false;
-					removeActive(x);
-					if(currentFocus >= x.length){
-						currentFocus = 0;
-					}
-					if(currentFocus < 0){
-						currentFocus = (x.length - 1);
-					}
-					x[currentFocus].classList.add("autocomplete-active");
-					
-				}
-				
-				function closeAllLists(element){
-					var x = document.getElementsByClassName("autocomplete-items");
-					for(var i=0; i< x.length; i++){
-						if(element != x[i] && element != input){
-							x[i].parentNode.removeChild(x[i]);
-						}
-					}
-				}
-				
-				document.addEventListener("click", function(e){
-					closeAllLists(e.target);
-				});
-				
-				function removeActive(x) {
-				    for (var i = 0; i < x.length; i++) {
-				      x[i].classList.remove("autocomplete-active");
-				    }
-				}
 			}
 		});
 	})
