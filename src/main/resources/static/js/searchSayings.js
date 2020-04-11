@@ -176,9 +176,18 @@ function formatListItem(item){
 
 function showFoundData(id, searchType){
 	
-	if(searchType === "sText"){
-		window.location.href = "sayings/" + id;
-	}
+	jQuery.get({
+		//dataProvidingAPIEndpoint is taken as parameter
+		//and input field has always to have id "searchTerm"
+		url: "userController/getLoggedInUsername",
+		success: function(username){
+
+			if(searchType === "sText"){
+				window.location.href = "sayings/" + username + "/" + id;
+			}
+			
+		}
 	
+	})
 }
 

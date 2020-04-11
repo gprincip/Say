@@ -69,8 +69,8 @@ public class ThymeleafController {
 		return mav;
 	}
 	
-	@RequestMapping(path="/sayings/{sayingId}")
-	public ModelAndView getSingleSaying(@PathVariable(name = "sayingId") String sayingId) {
+	@RequestMapping(path="/sayings/{username}/{sayingId}")
+	public ModelAndView getSingleSaying(@PathVariable(name = "sayingId") String sayingId, @PathVariable(name = "username") String username) {
 		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("sayingTemplate");

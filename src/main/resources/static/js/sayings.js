@@ -5,7 +5,7 @@ $(document).ready(function() {
 	console.log("ready!");
 	loadTagsFromDBForAutocomplete("api/tag/findAll");
 	tags.clear();
-	autocomplete($("#searchTerm"));
+	autocomplete($("#searchTerm"), "search/sText", 5);
 	$("#loader").hide();
 });
 
