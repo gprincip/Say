@@ -1,9 +1,5 @@
-1. Implement search functionality
-	1.6. Defining event listener inside success branch from json call don't work, fix it
 
 9. Protect REST (or check if it is needed)
-
-10. Use Cookies or similar to pre-fill some data in the sayings form
 
 11. Fix database - review constraints, associations, table names... (saying's author should be foreign key to User)
 
@@ -51,11 +47,14 @@ data currently in the search box inserted by user (if needed at all, for now thi
 
 2. Fix layout glitches
 
+1. Implement search functionality
+	
 1.1. Search all sayings that have one of the specified tags
 1.2. Search all sayings that have exactly specified tags
 1.3. Search all sayings from specified author
 1.4. Search all sayings by text
 1.5. Implement FE for search, consider live search using jQuery autocomplete
+1.6. Defining event listener inside success branch from json call don't work, fix it
 
 4. Forbid empty sayings to be posted
 
