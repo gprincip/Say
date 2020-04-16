@@ -12,9 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+
 import com.nimbusds.oauth2.sdk.util.StringUtils;
-import com.say.say.model.RegistrationStatus;
+import com.say.say.config.GlobalConfig;
 import com.say.say.model.UserBean;
 
 public class Util {
@@ -22,7 +24,7 @@ public class Util {
 	private static final Logger log = LoggerFactory.getLogger(Util.class);
 
 	private static final String HTTP_HEADER_X_FORWARDED_FOR = "X-FORWARDED-FOR";
-
+	
 	public static String extractIpFromServletRequest(HttpServletRequest request) {
 		
 		 String remoteAddr = "";
@@ -88,7 +90,6 @@ public class Util {
 	private static void initializeUser(UserBean user, HttpServletRequest request) {
 		String userIp = extractIpFromServletRequest(request);
 		user.setUserIp(userIp);
-		
 		if(request.getUserPrincipal() != null) {
 			user.setUsername(request.getUserPrincipal().getName());
 		}

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nimbusds.oauth2.sdk.util.StringUtils;
@@ -103,6 +104,11 @@ public class SayingController {
 		sayingService.persistSaying(saying, userIp);
 		
 		return "";
+	}
+	
+	@RequestMapping(path="/getAllSayingsFromUser", method = RequestMethod.GET)
+	public List<Saying> getAllSayingsFromUser(@RequestParam(name = "userId") long userId){
+		return sayingRepo.getSayingsFromUserId(userId);
 	}
 	
 }

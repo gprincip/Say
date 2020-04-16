@@ -65,6 +65,21 @@ public class ThymeleafController {
 		mav.setViewName("sayings");
 		
 		mav.addObject("userBean", userBean);
+		//Test t = new Test();
+		//t.test();
+		return mav;
+	}
+	
+
+	@RequestMapping(path="/sayings/{username}")
+	public ModelAndView getUserHomepage(String sayingId, @PathVariable(name = "username") String username) {
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("sayings");
+		
+		userBean.populateSayingsFromCurrentUser();
+		
+		mav.addObject("userBean", userBean);
 		
 		return mav;
 	}
