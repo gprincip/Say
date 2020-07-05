@@ -21,6 +21,7 @@ public class SayingsDisplayStrategyFetchQuantity implements SayingsDisplayStrate
 	@Override
 	public List<Saying> selectSayings(List<Saying> allSayings) {
 		
+		log.info("Selecting sayings using fetch quantity display strategy...");
 		Integer fetchQuantity = null;
 		try{
 			String strategy = config.getProperty("sayings.displayStrategy.fetchQuantity");

@@ -3,7 +3,7 @@ var tags = new Set();
 
 $(document).ready(function() {
 	console.log("ready!");
-	loadTagsFromDBForAutocomplete("api/tag/findAll");
+	loadTagsFromDBForAutocomplete("/say/api/tag/findAll");
 	tags.clear();
 	autocomplete($("#searchTerm"), "search/sText", 5);
 	$("#loader").hide();
@@ -48,9 +48,9 @@ function formatTagsForDisplay(tags){
 	
 	for(var i = 0; i<tagList.length; i++){
 		if(formattedTags == ""){
-			formattedTags += "<div class='tag'>" + tagList[i] + " <a href='#' onClick='removeTag(`" + tagList[i].toString() + "`)'><img src='images/removeTag.png' style='width:10px; height:10px;'></a></div>";
+			formattedTags += "<div class='tag'>" + tagList[i] + " <a href='#' onClick='removeTag(`" + tagList[i].toString() + "`)'><img src='/say/images/removeTag.png' style='width:10px; height:10px;'></a></div>";
 		}else{
-			formattedTags += ", <div class='tag'>" + tagList[i] + " <a href='#' onClick='removeTag(`" + tagList[i].toString() + "`)'><img src='images/removeTag.png' style='width:10px; height:10px;'></a></div>";
+			formattedTags += ", <div class='tag'>" + tagList[i] + " <a href='#' onClick='removeTag(`" + tagList[i].toString() + "`)'><img src='/say/images/removeTag.png' style='width:10px; height:10px;'></a></div>";
 		}
 	}
 	return formattedTags;
@@ -70,7 +70,7 @@ function validateAndSave(){
 	}
 	
 	jQuery.post({
-		url : "api/saying/validateAndSaveSaying",
+		url : "/say/api/saying/validateAndSaveSaying",
 		contentType: "application/json; charset=utf-8",
 		data: JSON.stringify(saying),
 		success : function(status) {

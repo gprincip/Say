@@ -1,0 +1,90 @@
+<html>
+
+<head>
+<script src="/say/js/libs/jquery-3.4.1.min.js"></script>
+</head>
+
+
+
+<body>
+	<fieldset>
+		<legend>Insert mock data to database</legend>
+<table>
+<tr>
+		<form action="/say/admin/insertMockData" method="POST">
+			<td>Insert tags, users and sayings </td> <td><input type="submit" value="Insert" onclick="afterInsertMockData()" /></td>
+		</form>
+</tr>
+</hr>
+<tr>
+		<form action="/say/admin/insertMockTags" method="POST">
+			<td>Insert tags</td> <td><input type="submit" value="Insert" onclick="afterInsertMockTags()" /></td>
+		</form>
+</tr>
+</hr>
+<tr>
+		<form action="/say/admin/insertMockUsers" method="POST">
+			<td>Insert users</td> <td><input type="submit" value="Insert" onclick="afterInsertMockUsers()" /></td>
+		</form>
+</tr>
+</hr>
+<tr>
+		<form action="/say/admin/insertMockSayings" method="POST">
+			<td>Insert sayings </td><td><input type="submit" value="Insert" onclick="afterInsertMockSayings()" /></td>
+		</form>
+</tr>
+</table>
+
+		<p id="dataInsertLabel">Data insertion started!</p>
+		<p id="usersInsertLabel">Users insertion started!</p>
+		<p id="sayingsInsertLabel">Sayings insertion started!</p>
+		<p id="tagsInsertLabel">Tags insertion started!</p>
+			
+			
+	</fieldset>
+</body>
+
+<script>
+
+	$(document).ready(function() {
+		$("#dataInsertLabel").hide();
+		$("#usersInsertLabel").hide();
+		$("#sayingsInsertLabel").hide();
+		$("#tagsInsertLabel").hide();
+	});
+
+	function afterInsertMockData() {
+		$("#dataInsertLabel").show();
+		
+		$("#usersInsertLabel").hide();
+		$("#sayingsInsertLabel").hide();
+		$("#tagsInsertLabel").hide();
+	}
+	
+	function afterInsertMockUsers(){
+		$("#usersInsertLabel").show();
+		
+		$("#dataInsertLabel").hide();
+		$("#sayingsInsertLabel").hide();
+		$("#tagsInsertLabel").hide();
+	}
+	
+	function afterInsertMockSayings(){
+		$("#sayingsInsertLabel").show();
+		
+		$("#dataInsertLabel").hide();
+		$("#usersInsertLabel").hide();
+		$("#tagsInsertLabel").hide();
+	}
+	
+	function afterInsertMockTags(){
+		$("#tagsInsertLabel").show();
+		
+		$("#dataInsertLabel").hide();
+		$("#usersInsertLabel").hide();
+		$("#sayingsInsertLabel").hide();
+	}
+	
+</script>
+
+</html>

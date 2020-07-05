@@ -1,6 +1,7 @@
 package com.say.say.model;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -13,7 +14,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -97,6 +97,9 @@ public class Saying{
 		this.clientIp = clientIp;
 	}
 	public void addTag(Tag tag) {
+		if(tags == null) {
+			tags = new HashSet<Tag>();
+		}
 		tags.add(tag);
 	}
 	public Date getDate() {

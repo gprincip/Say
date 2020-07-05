@@ -11,7 +11,7 @@ import com.say.say.test.DatabaseInserter;
 public class UtilController {
 
 	/** Path to a file with list of random tag names used for testing */
-	public static String TAGS_TXT_FILENAME = "static/files/corncob_lowercase.txt";
+	public static String TAGS_TXT_FILENAME = "static/files/mock_data/corncob_lowercase.txt";
 
 	@Autowired
 	DatabaseInserter dbInserter;

@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.nimbusds.oauth2.sdk.util.StringUtils;
@@ -24,6 +26,8 @@ public class UserBean implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
+	private static final Logger log = LoggerFactory.getLogger(UserBean.class);
+	
 	@Autowired
 	UserRepository userRepo;
 	
@@ -35,6 +39,9 @@ public class UserBean implements Serializable{
 	
 	@Autowired
 	SayingsDisplayStrategy sayingsDisplayStrategy;
+	
+	@Autowired
+	GlobalConfig config;
 	
 	private String userIp;
 	private String username;
@@ -104,6 +111,8 @@ public class UserBean implements Serializable{
 
 	public void populateSayingsFromCurrentUser() {
 		
+		log.info("Populating sayings for current user...");
+		
 		if(sayings == null) {
 			sayings = new ArrayList<Saying>();
 		}
@@ -132,14 +141,18 @@ public class UserBean implements Serializable{
 
 	private void loadSayingsDisplayStrategy() {
 
-		/*
-		 * String strategy =
-		 * config.getProperty("sayings.displayStrategy.usedDisplayStrategy");
-		 * 
-		 * switch (strategy) { case "fetchQuantity": sayingsDisplayStrategy = new
-		 * SayingsDisplayStrategyFetchQuantity(); break; case "all":
-		 * sayingsDisplayStrategy = new SayingsDisplayStrategyAll(); break; }
-		 */
+	    String strategy = config.getProperty("sayings.displayStrategy.usedDisplayStrategy");
+		 
+	    log.info("Selected sayings display strategy: " + strategy);
+	    
+		switch (strategy) {
+		case "fetchQuantity":
+			sayingsDisplayStrategy = new SayingsDisplayStrategyFetchQuantity();
+			break;
+		case "all":
+			sayingsDisplayStrategy = new SayingsDisplayStrategyAll();
+			break;
+		}
 
 	}
 	

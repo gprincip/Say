@@ -36,9 +36,10 @@ public class DatabaseInserter {
 
 	/**
 	 * Adds tags from txt file to database. One line - one tag name
-	 * 
+	 * <b>Deprecated: use {@link com.say.say.mock.MockDataAddingService}</b>
 	 * @param filename
 	 */
+	@Deprecated
 	public void addTagsToDatabase(String filename) {
 
 		try {

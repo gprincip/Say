@@ -38,7 +38,7 @@
 	<div id="searchDiv" class="center">
 		</br>
 		<input type="text" id="searchTerm" placeholder="Enter search term..."/>
-		<div id="loaderWrapper"><img id = "loader" src="images/loader.gif"></img></div> </br></br>
+		<div id="loaderWrapper"><img id = "loader" src="/say/images/loader.gif"></img></div> </br></br>
 	</div>
 
 	<div id="loggedInInfo">
@@ -49,22 +49,25 @@
 </div>
 
 </br></br>
-	<div id="feedDiv" class="center">
-		
-		<tr th:each="saying: ${userBean.sayingsForDisplay}">
-			<td th:text="${saying.text}"/> |
-			<td th:text="${saying.author}"/> |
+<div id="feedDiv" class="center">
+
+	<tr th:each="saying: ${userBean.sayingsForDisplay}">
+
+		<div class=feed-item>
+			<td th:text="${saying.text}" /> |
+			<td th:text="${saying.author}" /> |
+			
 			<!-- <tr th:each="tag: ${saying.tags}">
 				
 				<td th:text="${tag.name}"/>
 				
 			</tr> -->
-			<td th:text="${saying.tags}"/>
-			</br>
-			<hr/>
-
-		</tr>
-	</div>
+			
+			<td th:text="${saying.tags}" /> </br>
+			<hr />
+		</div>
+	</tr>
+</div>
 
 
 </html>

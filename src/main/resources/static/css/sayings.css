@@ -98,7 +98,9 @@
 	height: 250px;
 }
 
-
+.feedItem{
+	border: 1px solid blue;
+}
 
 
 
