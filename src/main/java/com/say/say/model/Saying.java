@@ -16,6 +16,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Type;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
@@ -28,6 +30,7 @@ public class Saying{
 	private Long id;
 	
 	@Column
+	@Type(type = "text")
 	private String text;
 	
 	@Column

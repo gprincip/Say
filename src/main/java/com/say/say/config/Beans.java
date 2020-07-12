@@ -15,8 +15,10 @@ import com.say.say.sayings.displayStrategy.SayingsDisplayStrategyAll;
 import com.say.say.sayings.displayStrategy.SayingsDisplayStrategyFetchQuantity;
 import com.say.say.search.DBSearcher;
 import com.say.say.search.ISearcher;
+import com.say.say.service.FileSystemStorageService;
 import com.say.say.service.RegistrationService;
 import com.say.say.service.RegistrationServiceImpl;
+import com.say.say.service.StorageService;
 import com.say.say.sql.SqlExecutorService;
 import com.say.say.sql.SqlExecutorServiceImpl;
 
@@ -71,6 +73,11 @@ public class Beans {
 			return new SayingsDisplayStrategyAll();
 		}
 		return null;
+	}
+	
+	@Bean
+	public StorageService storageService() {
+		return new FileSystemStorageService();
 	}
 	
 }

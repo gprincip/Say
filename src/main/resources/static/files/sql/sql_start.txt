@@ -15,12 +15,8 @@ select * from user;
 select * from role;
 
 insert into user_role values
-(1,15),
-(1,16);
-
-insert into role values
-(null, "ROLE_USER"),
-(null, "ROLE_ADMIN");
+(1,1),
+(1,2);
 
 delete from saying_tags;
 delete from tag;
