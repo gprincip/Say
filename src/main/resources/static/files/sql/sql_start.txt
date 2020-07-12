@@ -1,6 +1,7 @@
 This is a file that contains useful sql statements for starters
 
--create a user: TBA
+-create a user: CREATE USER 'sayadmin'@'localhost' IDENTIFIED BY 'say%pw';
+-grant privilegies: GRANT ALL ON saydb,* TO 'sayadmin'@'localhost';
 
 insert into user values 
 (1, null, 1, 'asd@asd.asd', 'firstname','lastname','$2a$10$L6rPDi8z81gQx2rFKSFUmuHq1aaeRL/ZlpMJtoRKokQkcRcdeLYxK',0,'admin');
