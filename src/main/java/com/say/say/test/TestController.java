@@ -16,6 +16,7 @@ import com.say.say.model.SayingsSearchParameters;
 import com.say.say.model.UserBean;
 import com.say.say.search.ISearcher;
 import com.say.say.search.SayingsSearchResult;
+import com.say.say.service.RedisService;
 import com.say.say.service.SayingSearcher;
 import com.say.say.service.SayingService;
 import com.say.say.service.email.MailSenderWrapper;
@@ -48,6 +49,9 @@ public class TestController {
 	
 	@Autowired
 	SqlExecutorService sqlExecutor;
+	
+	@Autowired
+	RedisService redisService;
 	
 	@RequestMapping(value="/testIpExtraction")
 	public void getClientIp(HttpServletRequest request) {
@@ -115,6 +119,12 @@ public class TestController {
 	@RequestMapping(value="/testSqlExecutor")
 	public void testSqlExecutor() {
 		sqlExecutor.test();
+	}
+	
+
+	@RequestMapping("/testRedis")
+	public void testRedis() {
+		redisService.testRedis();
 	}
 	
 }
