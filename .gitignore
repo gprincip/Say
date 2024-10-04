@@ -31,3 +31,5 @@ build/
 .vscode/
 
 working_directory/
+
+logs/

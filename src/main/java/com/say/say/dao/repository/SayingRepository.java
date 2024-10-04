@@ -34,10 +34,10 @@ public interface SayingRepository extends JpaRepository<Saying, Long>{
 			"and min(case when tags_id in (:tagIds) then tags_id else 0 end) > 0", nativeQuery=true)
 	public List<Long> getSayingsContainingExactlyGivenTags(@Param(value="tagIds")List<Long> tagIds, @Param(value="tagCount") String tagCount);
 	
-	@Query(value="select * from saying where user = :userId", nativeQuery = true)
+	@Query(value="select * from saying where user_id = :userId", nativeQuery = true)
 	public List<Saying> getSayingsFromUserId(@Param(value="userId") long userId);
 	
-	@Query(value="select s.* from saying s join user u on s.user = u.id where u.username = :username", nativeQuery = true)
+	@Query(value="select s.* from saying s join users u on s.user_id = u.id where u.username = :username", nativeQuery = true)
 	public List<Saying> getSayingsFromUsername(@Param(value="username") String username);
 	
 }

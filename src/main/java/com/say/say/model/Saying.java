@@ -36,7 +36,7 @@ public class Saying{
 	@Column
 	private String author;
 	
-	@JoinColumn(name="user")
+	@JoinColumn(name="user_id")
 	@ManyToOne
 	private User user;
 	

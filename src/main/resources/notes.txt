@@ -3,3 +3,17 @@ In context.xml under tomcat server disable session persistence across Tomcat res
 Uncomment this to disable session persistence across Tomcat restarts
     
     <Manager pathname="" />
+    
+
+To create postgresql user:    
+CREATE ROLE sayadmin WITH LOGIN PASSWORD 'say%pw';
+ALTER ROLE sayadmin WITH SUPERUSER;
+
+To create application user (password bencrypted for 'admin'):
+INSERT INTO public."users"(
+	id, activation_code, active, email, first_name, last_name, password, reputation, username)
+	VALUES (nextval('users_id_seq'), 'asd',true , 'gavrilo.adamovic@gmail.com', 'Admin', 'Admin-lastname', '$2a$10$PaSLIUxViiwmUptJnjRVZOWtfa2YWwzwr4mqRd720UKB7qKHL3hlq',0,'admin');
+
+insert into role (id, role) values (1, 'ROLE_USER'),(2, 'ROLE_ADMIN');
+insert into user_role (user_id, role_id) values (1, 2);
+

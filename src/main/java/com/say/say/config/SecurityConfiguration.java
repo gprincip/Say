@@ -42,9 +42,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 		auth.jdbcAuthentication().dataSource(dataSource) 
 				.passwordEncoder(passwordEncoder)
-				.usersByUsernameQuery("select username, password, active from user where username=?")
+				.usersByUsernameQuery("select username, password, active from users where username=?")
 				.authoritiesByUsernameQuery("select u.username, r.role from user_role ur \n" + 
-						"join user u on u.id = ur.user_id \n" + 
+						"join users u on u.id = ur.user_id \n" + 
 						"join role r on r.id = ur.role_id \n" + 
 						"where u.username = ?");
 	}
