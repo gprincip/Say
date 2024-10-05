@@ -16,8 +16,11 @@ import com.say.say.dao.repository.SayingRepository;
 import com.say.say.model.RedisKeys;
 import com.say.say.model.Saying;
 import com.say.say.util.JsonUtil;
+import com.say.say.util.RedisSchema;
 
 import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
+import redis.clients.jedis.JedisPoolConfig;
 
 @Service
 public class RedisService{
@@ -41,10 +44,6 @@ public class RedisService{
 		
 	}
 	
-	private Jedis getConnection() {
-		return new Jedis("localhost", 6379);
-	}
-	
 
 	public void addSayingsForUserToRedisCache(String username) {
 		
@@ -54,7 +53,9 @@ public class RedisService{
 		Collection<List<Saying>> partitioned = sayings.stream().
 				collect(Collectors.groupingBy(user -> ai.getAndIncrement() / 100)).values();
 		
-		try (Jedis jedis = getConnection()) {
+		JedisPool jedisPool = new JedisPool(new JedisPoolConfig(), "localhost", 6379);
+		
+		try (Jedis jedis = jedisPool.getResource()) {
 		
 			int partitionNo = 1;
 			long start = 0;
@@ -66,7 +67,7 @@ public class RedisService{
 				for(Saying s : partition) {
 					
 					String sayingJson = JsonUtil.sayingToJson(s);
-					jedis.sadd(RedisKeys.USERSAYINGS.getKey() + ":" + username, sayingJson);
+					jedis.sadd(RedisSchema.createUserSayingsCacheKey(username), sayingJson);
 					
 				}
 				
@@ -75,6 +76,8 @@ public class RedisService{
 				
 			log.info("Finished adding user's (" + username + ") sayings to the redis cache in " + (System.currentTimeMillis() - start) + " ms");
 		}
+		
+		jedisPool.close();
 	}
 	
 	@Async
