@@ -9,7 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.say.say.model.UserBean;
+import com.say.say.model.LoggedUser;
 import com.say.say.sayings.displayStrategy.SayingsDisplayStrategy;
 import com.say.say.sayings.displayStrategy.SayingsDisplayStrategyAll;
 import com.say.say.sayings.displayStrategy.SayingsDisplayStrategyFetchQuantity;
@@ -35,8 +35,8 @@ public class Beans {
 	
 	@Bean
 	@Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
-	public UserBean sessionScopedBean() {
-	    return new UserBean();
+	public LoggedUser sessionScopedBean() {
+	    return new LoggedUser();
 	}
 	
 	@Bean

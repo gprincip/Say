@@ -59,7 +59,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		    .successHandler(successHandler)
 		    .loginPage("/login")
 		    .and()
-		    .csrf().disable();
+		    .csrf().disable(); //TODO enable for production
 		    
 		}
 }

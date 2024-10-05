@@ -13,17 +13,21 @@ import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
-import com.say.say.model.UserBean;
+import com.say.say.model.LoggedUser;
+import com.say.say.service.RedisService;
 import com.say.say.util.Util;
 
 @Component
 public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHandler {
 
 	@Autowired
-	UserBean userBean;
+	LoggedUser user;
 	
 	@Autowired
 	GlobalConfig config;
+	
+	@Autowired
+	RedisService redisService;
 	
 	private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 	
@@ -31,7 +35,8 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
 		
-		Util.setUserdata(userBean, authentication, request);
+		Util.setUserdata(user, authentication, request);
+		redisService.addSayingsForUserToRedisCacheAsync(user.getUsername());
 		
 		proceed(request, response, authentication);
 	}

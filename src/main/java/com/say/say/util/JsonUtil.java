@@ -13,6 +13,12 @@ public class JsonUtil {
 		return saying;
 
 	}
+	
+	public static String sayingToJson(Saying saying) {
+		Gson gson = new Gson();
+		String json = gson.toJson(saying);
+		return json;
+	}
 
 	public static String searchResultToJson(SayingsSearchResult searchResult) {
 

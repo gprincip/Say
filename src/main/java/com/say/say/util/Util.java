@@ -17,7 +17,7 @@ import org.springframework.security.core.Authentication;
 
 import com.nimbusds.oauth2.sdk.util.StringUtils;
 import com.say.say.config.GlobalConfig;
-import com.say.say.model.UserBean;
+import com.say.say.model.LoggedUser;
 
 public class Util {
 
@@ -74,7 +74,7 @@ public class Util {
 		return propsMap;
 	}
 
-	public static void setUserdata(UserBean user, HttpServletRequest request) {
+	public static void setUserdata(LoggedUser user, HttpServletRequest request) {
 		
 		if(isNotInitialized(user)) {
 			initializeUser(user, request);
@@ -87,7 +87,7 @@ public class Util {
 	 * @param user
 	 * @param request
 	 */
-	private static void initializeUser(UserBean user, HttpServletRequest request) {
+	private static void initializeUser(LoggedUser user, HttpServletRequest request) {
 		String userIp = extractIpFromServletRequest(request);
 		user.setUserIp(userIp);
 		if(request.getUserPrincipal() != null) {
@@ -100,7 +100,7 @@ public class Util {
 	 * @param user
 	 * @return
 	 */
-	private static boolean isNotInitialized(UserBean user) {
+	private static boolean isNotInitialized(LoggedUser user) {
 		
 		if(StringUtils.isBlank(user.getUserIp())){
 			return true;
@@ -125,7 +125,7 @@ public class Util {
 		return longList;
 	}
 
-	public static void setUserdata(UserBean userBean, Authentication authentication, HttpServletRequest request) {
+	public static void setUserdata(LoggedUser userBean, Authentication authentication, HttpServletRequest request) {
 		
 		userBean.setUsername(authentication.getName());
 		if(request.getUserPrincipal() != null) {

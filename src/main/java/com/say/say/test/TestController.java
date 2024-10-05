@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.say.say.model.Saying;
 import com.say.say.model.SayingsSearchParameters;
-import com.say.say.model.UserBean;
+import com.say.say.model.LoggedUser;
 import com.say.say.search.ISearcher;
 import com.say.say.search.SayingsSearchResult;
 import com.say.say.service.RedisService;
@@ -39,7 +39,7 @@ public class TestController {
 	SayingService sService;
 	
 	@Autowired
-	UserBean userBean;
+	LoggedUser userBean;
 	
 	@Autowired
 	MailSenderWrapper mailSender;

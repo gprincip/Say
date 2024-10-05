@@ -47,7 +47,7 @@ public class Saying{
 	@Column
 	private Date date;
 	
-	@ManyToMany(fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JsonProperty("tags")
 	private Set<Tag> tags;
 	

@@ -22,11 +22,11 @@ import com.say.say.sql.SqlExecutorService;
  * @author gavrilo
  *
  */
-public class UserBean implements Serializable{
+public class LoggedUser implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
-	private static final Logger log = LoggerFactory.getLogger(UserBean.class);
+	private static final Logger log = LoggerFactory.getLogger(LoggedUser.class);
 	
 	@Autowired
 	UserRepository userRepo;
@@ -51,7 +51,7 @@ public class UserBean implements Serializable{
 	/** Subset of sayings to be displayed on view */
 	private List<Saying> sayingsForDisplay;
 		
-	public UserBean() {}
+	public LoggedUser() {}
 	
 	@Override
 	public int hashCode() {
@@ -164,7 +164,7 @@ public class UserBean implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		UserBean other = (UserBean) obj;
+		LoggedUser other = (LoggedUser) obj;
 		if (user == null) {
 			if (other.user != null)
 				return false;

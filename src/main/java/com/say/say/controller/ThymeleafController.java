@@ -14,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.say.say.dao.repository.SayingRepository;
 import com.say.say.dao.repository.TagRepository;
 import com.say.say.model.Saying;
-import com.say.say.model.UserBean;
+import com.say.say.model.LoggedUser;
 import com.say.say.service.SayingService;
 
 /**
@@ -35,7 +35,7 @@ public class ThymeleafController {
 	SayingService sayingService;
 	
 	@Autowired
-	UserBean userBean;
+	LoggedUser userBean;
 	
 	@RequestMapping(path="/testThymeleaf")
 	public ModelAndView testThymeleaf() {

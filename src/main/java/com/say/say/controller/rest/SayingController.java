@@ -19,7 +19,7 @@ import com.say.say.dao.repository.SayingRepository;
 import com.say.say.dao.repository.TagRepository;
 import com.say.say.model.Saying;
 import com.say.say.model.Tag;
-import com.say.say.model.UserBean;
+import com.say.say.model.LoggedUser;
 import com.say.say.service.SayingService;
 import com.say.say.service.UserService;
 import com.say.say.util.JsonUtil;
@@ -43,7 +43,7 @@ public class SayingController {
 	 * Current user
 	 */
 	@Autowired
-	UserBean userBean;
+	LoggedUser userBean;
 	
 	@Autowired
 	UserService userService;
