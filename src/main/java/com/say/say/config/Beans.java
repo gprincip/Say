@@ -15,6 +15,7 @@ import com.say.say.sayings.displayStrategy.SayingsDisplayStrategyAll;
 import com.say.say.sayings.displayStrategy.SayingsDisplayStrategyFetchQuantity;
 import com.say.say.search.DBSearcher;
 import com.say.say.search.ISearcher;
+import com.say.say.search.RedisSearcher;
 import com.say.say.service.FileSystemStorageService;
 import com.say.say.service.RegistrationService;
 import com.say.say.service.RegistrationServiceImpl;
@@ -40,8 +41,13 @@ public class Beans {
 	
 	@Bean
 	@Primary
-	public ISearcher getSearcher() {
+	public ISearcher getDbSearcher() {
 		return new DBSearcher();
+	}
+	
+	@Bean
+	public ISearcher getRedisSearcher() {
+		return new RedisSearcher();
 	}
 	
 	@Bean

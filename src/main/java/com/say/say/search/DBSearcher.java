@@ -30,12 +30,12 @@ public class DBSearcher implements ISearcher{
 	TagRepository tagRepo;
 	
 	@Override
-	public SayingsSearchResult searchSayingsByText(SayingsSearchParameters searchParameters) {
+	public SayingsSearchResult searchSayingsByText(SayingsSearchParameters searchData) {
 		
-		String searchTerm = searchParameters.getSearchTerm();
-		int fetchQuantity = searchParameters.getFetchQuantity();
+		String searchTerm = searchData.getSearchTerm();
+		int countLimit = searchData.getResultsCountLimit();
 		
-		List<Saying> sayingsContainingText = sayingService.getSayingsByTextLimited(searchTerm, fetchQuantity);
+		List<Saying> sayingsContainingText = sayingService.getSayingsByTextLimited(searchTerm, countLimit);
 		SayingsSearchResult result = new SayingsSearchResult();
 		result.setSearchType(SearchType.SAYING_BY_TEXT.getSearchPrefix());
 		result.setSearchTerm(searchTerm);

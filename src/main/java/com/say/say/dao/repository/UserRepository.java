@@ -10,10 +10,10 @@ import com.say.say.model.User;
 
 public interface UserRepository extends JpaRepository<User, Long>{
 
-	@Query(value="select * from user where username = :username",nativeQuery=true)
+	@Query(value="select * from users where username = :username",nativeQuery=true)
 	User findUserByUsername(@Param(value = "username")String username);
 
-	@Query(value="select * from user where email = :email", nativeQuery = true)
+	@Query(value="select * from users where email = :email", nativeQuery = true)
 	List<User> findUserByEmail(@Param(value="email") String email);
 	
 }

@@ -43,6 +43,8 @@ data currently in the search box inserted by user (if needed at all, for now thi
 
 32. Create bigger set of mock data to populate database
 
+33. Create a factory for choosing display strategy in: public SayingsDisplayStrategy getSayingsDisplayStrategy() {
+
 ==========================RESOLVED TASKS============================
 
 2. Fix layout glitches

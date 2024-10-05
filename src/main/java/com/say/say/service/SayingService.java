@@ -87,11 +87,8 @@ public class SayingService {
 	 */
 	public List<Saying> getSayingsByTextLimited(String searchTerm, int limit) {
 		
-		javax.persistence.Query query = entityManager.createNativeQuery("select * from saying where text like concat('%',:searchTerm, '%')", Saying.class).setMaxResults(limit);
-		query.setParameter("searchTerm", searchTerm);
+		List<Saying> results = sayingRepo.getSayingsByTextLimited(searchTerm, limit);
 		
-		@SuppressWarnings("unchecked")
-		List<Saying> results = (List<Saying>) query.getResultList();
 		return results;
 	}
 	

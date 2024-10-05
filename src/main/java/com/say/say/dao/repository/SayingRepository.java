@@ -40,4 +40,7 @@ public interface SayingRepository extends JpaRepository<Saying, Long>{
 	@Query(value="select s.* from saying s join users u on s.user_id = u.id where u.username = :username", nativeQuery = true)
 	public List<Saying> getSayingsFromUsername(@Param(value="username") String username);
 	
+	@Query(value="select * from saying where text like concat('%',:searchTerm, '%') limit :limit", nativeQuery = true)
+	public List<Saying> getSayingsByTextLimited(@Param(value="searchTerm") String searchTerm, @Param(value="limit") int limit);
+	
 }

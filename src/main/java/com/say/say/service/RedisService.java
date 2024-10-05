@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import redis.clients.jedis.Jedis;
 
 @Service
-public class RedisService {
+public class RedisService{
 
 	public void testRedis() {
 		

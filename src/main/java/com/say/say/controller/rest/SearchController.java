@@ -22,7 +22,7 @@ public class SearchController {
 		
 		SayingsSearchParameters params = new SayingsSearchParameters();
 		params.setSearchTerm(searchTerm);
-		params.setFetchQuantity(fetchQuantity);
+		params.setResultsCountLimit(fetchQuantity);
 		
 		SayingsSearchResult result = dbSearcher.searchSayingsByText(params);
 		return JsonUtil.searchResultToJson(result);

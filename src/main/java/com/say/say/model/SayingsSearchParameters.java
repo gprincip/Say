@@ -1,6 +1,7 @@
 package com.say.say.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Search parameters used for searching for sayings
@@ -12,38 +13,33 @@ public class SayingsSearchParameters implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private String searchTerm;
-	private int fetchQuantity;
+	private int resultsCountLimit;
 	
+	
+	
+	public SayingsSearchParameters(String searchTerm, int resultsCountLimit) {
+		super();
+		this.searchTerm = searchTerm;
+		this.resultsCountLimit = resultsCountLimit;
+	}
+	public SayingsSearchParameters() {
+		// TODO Auto-generated constructor stub
+	}
 	public String getSearchTerm() {
 		return searchTerm;
 	}
 	public void setSearchTerm(String searchTerm) {
 		this.searchTerm = searchTerm;
 	}
-	public int getFetchQuantity() {
-		return fetchQuantity;
+	public int getResultsCountLimit() {
+		return resultsCountLimit;
 	}
-	public void setFetchQuantity(int fetchQuantity) {
-		this.fetchQuantity = fetchQuantity;
-	}
-	
-	public SayingsSearchParameters() {}
-	
-	public SayingsSearchParameters(String searchTerm, int fetchQuantity) {
-		this.searchTerm = searchTerm;
-		this.fetchQuantity = fetchQuantity;
-	}
-	@Override
-	public String toString() {
-		return "SayingsSearchParameters [searchTerm=" + searchTerm + ", fetchQuantity=" + fetchQuantity + "]";
+	public void setResultsCountLimit(int resultsCountLimit) {
+		this.resultsCountLimit = resultsCountLimit;
 	}
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + fetchQuantity;
-		result = prime * result + ((searchTerm == null) ? 0 : searchTerm.hashCode());
-		return result;
+		return Objects.hash(resultsCountLimit, searchTerm);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -54,14 +50,12 @@ public class SayingsSearchParameters implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		SayingsSearchParameters other = (SayingsSearchParameters) obj;
-		if (fetchQuantity != other.fetchQuantity)
-			return false;
-		if (searchTerm == null) {
-			if (other.searchTerm != null)
-				return false;
-		} else if (!searchTerm.equals(other.searchTerm))
-			return false;
-		return true;
+		return resultsCountLimit == other.resultsCountLimit && Objects.equals(searchTerm, other.searchTerm);
 	}
+	@Override
+	public String toString() {
+		return "SayingsSearchParameters [searchTerm=" + searchTerm + ", resultsCountLimit=" + resultsCountLimit + "]";
+	}
+
 	
 }
