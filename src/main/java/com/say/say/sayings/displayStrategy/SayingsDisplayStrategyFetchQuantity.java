@@ -7,16 +7,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.say.say.config.GlobalConfig;
+import com.say.say.config.ApplicationProperties;
 import com.say.say.model.Saying;
 
 public class SayingsDisplayStrategyFetchQuantity implements SayingsDisplayStrategy {
 
-	private static final Logger log = LoggerFactory.getLogger(GlobalConfig.class);
+	private static final Logger log = LoggerFactory.getLogger(ApplicationProperties.class);
 
 	
 	@Autowired
-	GlobalConfig config;
+	ApplicationProperties config;
 	
 	@Override
 	public List<Saying> selectSayings(List<Saying> allSayings) {

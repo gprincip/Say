@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import com.say.say.dao.SayingDaoDbImpl;
 import com.say.say.dao.repository.SayingRepository;
 import com.say.say.model.RedisKeys;
 import com.say.say.model.Saying;
@@ -28,7 +29,7 @@ public class RedisService{
 	private static final Logger log = LoggerFactory.getLogger(RedisService.class);
 	
 	@Autowired
-	SayingRepository sayingsRepo;
+	SayingDaoDbImpl sayingsDao;
 	
 	public void testRedis() {
 		
@@ -47,7 +48,7 @@ public class RedisService{
 
 	public void addSayingsForUserToRedisCache(String username) {
 		
-		List<Saying> sayings = sayingsRepo.getSayingsFromUsername(username);
+		List<Saying> sayings = sayingsDao.getSayingsFromUsername(username);
 		
 		AtomicInteger ai = new AtomicInteger(0);
 		Collection<List<Saying>> partitioned = sayings.stream().

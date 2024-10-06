@@ -27,8 +27,8 @@ import com.say.say.sql.SqlExecutorServiceImpl;
 public class Beans {
 	
 	@Bean
-	public GlobalConfig getGlobalConfig() {
-		GlobalConfig config = new GlobalConfig();
+	public ApplicationProperties getGlobalConfig() {
+		ApplicationProperties config = new ApplicationProperties();
 		config.init();
 		return config;
 	}
@@ -68,7 +68,7 @@ public class Beans {
 	@Bean
 	public SayingsDisplayStrategy getSayingsDisplayStrategy() {
 		
-		GlobalConfig config = new GlobalConfig(); //we must use new instance of config here, because it would still not be injected into this class when we would use it
+		ApplicationProperties config = new ApplicationProperties(); //we must use new instance of config here, because it would still not be injected into this class when we would use it
 		config.init();
 		String strategy = config.getProperty("sayings.displayStrategy.usedDisplayStrategy");
 

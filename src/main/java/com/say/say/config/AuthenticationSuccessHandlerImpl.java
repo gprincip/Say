@@ -24,7 +24,7 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
 	LoggedUser user;
 	
 	@Autowired
-	GlobalConfig config;
+	ApplicationProperties config;
 	
 	@Autowired
 	RedisService redisService;

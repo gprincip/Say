@@ -15,7 +15,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
-import com.say.say.config.GlobalConfig;
+import com.say.say.config.ApplicationProperties;
 import com.say.say.dao.repository.SayingRepository;
 import com.say.say.dao.repository.TagRepository;
 import com.say.say.model.Saying;
@@ -36,7 +36,7 @@ public class SayingService {
 	EntityManager entityManager;
 	
 	@Autowired
-	GlobalConfig config;
+	ApplicationProperties config;
 	
 	public void persistSaying(Saying saying, String clientIp) {
 			

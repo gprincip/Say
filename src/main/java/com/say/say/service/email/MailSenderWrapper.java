@@ -7,7 +7,7 @@ import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Component;
 
-import com.say.say.config.GlobalConfig;
+import com.say.say.config.ApplicationProperties;
 
 /**
  * Email sender wrapper intended (in the moment of implementation)
@@ -24,7 +24,7 @@ public class MailSenderWrapper {
 	MailSender mailSender;
 	
 	@Autowired
-	GlobalConfig config;
+	ApplicationProperties config;
 	
 	public void send(SimpleMailMessage message) {
 		

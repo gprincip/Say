@@ -9,7 +9,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.nimbusds.oauth2.sdk.util.StringUtils;
-import com.say.say.config.GlobalConfig;
+import com.say.say.config.ApplicationProperties;
+import com.say.say.dao.SayingDaoDbImpl;
 import com.say.say.dao.repository.SayingRepository;
 import com.say.say.dao.repository.UserRepository;
 import com.say.say.sayings.displayStrategy.SayingsDisplayStrategy;
@@ -32,7 +33,7 @@ public class LoggedUser implements Serializable{
 	UserRepository userRepo;
 	
 	@Autowired
-	SayingRepository sayingRepo;
+	SayingDaoDbImpl sayingDao;
 	
 	@Autowired
 	SqlExecutorService sqlExecutorService;
@@ -41,7 +42,7 @@ public class LoggedUser implements Serializable{
 	SayingsDisplayStrategy sayingsDisplayStrategy;
 	
 	@Autowired
-	GlobalConfig config;
+	ApplicationProperties config;
 	
 	private String userIp;
 	private String username;
@@ -117,7 +118,7 @@ public class LoggedUser implements Serializable{
 			sayings = new ArrayList<Saying>();
 		}
 		
-		List<Saying> sayings = sayingRepo.getSayingsFromUsername(username);
+		List<Saying> sayings = sayingDao.getSayingsFromUsername(username);
 		setSayings(sayings);
 		
 		if(sayingsForDisplay == null) {

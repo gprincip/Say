@@ -1,7 +1,9 @@
 package com.say.say.model;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -128,6 +130,20 @@ public class Saying{
 		
 		return (tags.stream().map(elem -> elem.getName()).collect(Collectors.toSet()));		
 		
+	}
+
+	public Map<String, String> toMap() {
+		
+		Map<String, String> map = new HashMap<>();
+		
+		map.put("text", text);
+		map.put("author", author);
+		map.put("tags", tags.toString()); //should be handled differently, this is only for demo
+		map.put("score", score.toString());
+		map.put("clientIp", clientIp);
+		map.put("date", date.toString());
+		
+		return map;
 	}
 	
 }

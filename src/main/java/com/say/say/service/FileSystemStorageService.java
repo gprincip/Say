@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.say.say.config.GlobalConfig;
+import com.say.say.config.ApplicationProperties;
 
 /**
  * Implementation of storage service used for storing uploaded files on disk
@@ -24,7 +24,7 @@ public class FileSystemStorageService implements StorageService{
 
 	Logger log = LoggerFactory.getLogger(FileSystemStorageService.class);
 	
-	@Autowired GlobalConfig config;
+	@Autowired ApplicationProperties config;
 
 	@Override
 	public void store(MultipartFile file) {

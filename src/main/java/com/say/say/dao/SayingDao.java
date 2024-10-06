@@ -1,7 +1,13 @@
 package com.say.say.dao;
 
-public class SayingDao{
+import java.util.List;
 
+import com.say.say.model.Saying;
 
+public interface SayingDao{
+
+	public void save(Saying saying);
+	
+	public List<Saying> findAll();
 	
 }

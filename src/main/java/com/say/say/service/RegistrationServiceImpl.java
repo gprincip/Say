@@ -11,7 +11,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.say.say.config.GlobalConfig;
+import com.say.say.config.ApplicationProperties;
 import com.say.say.dao.repository.UserRepository;
 import com.say.say.model.BackendMessage;
 import com.say.say.model.MessageType;
@@ -33,7 +33,7 @@ public class RegistrationServiceImpl implements RegistrationService{
 	PasswordEncoder passwordEncoder;
 	
 	@Autowired
-	GlobalConfig config;
+	ApplicationProperties config;
 	
 	@Override
 	public List<BackendMessage> registerUser(String username, String password, String email) {

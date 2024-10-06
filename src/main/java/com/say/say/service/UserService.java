@@ -5,7 +5,8 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.say.say.config.GlobalConfig;
+import com.say.say.config.ApplicationProperties;
+import com.say.say.dao.SayingDaoDbImpl;
 import com.say.say.dao.repository.SayingRepository;
 import com.say.say.model.Saying;
 
@@ -13,10 +14,10 @@ import com.say.say.model.Saying;
 public class UserService {
 
 	@Autowired
-	SayingRepository sayingRepo;
+	SayingDaoDbImpl sayingDao;
 	
 	@Autowired
-	GlobalConfig config;
+	ApplicationProperties config;
 	
 	/**
 	 * Checks how much time user have to wait until he can post again
@@ -27,7 +28,7 @@ public class UserService {
 	 */
 	public String timeUntilPostingCooldownExpired(String clientIp) {
 		
-		Saying lastSaying = sayingRepo.getLastSayingFromIp(clientIp);
+		Saying lastSaying = sayingDao.getLastSayingFromIp(clientIp);
 		if(lastSaying != null) {
 				
 			Date date = lastSaying.getDate();

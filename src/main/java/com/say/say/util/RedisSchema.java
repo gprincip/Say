@@ -12,5 +12,10 @@ public class RedisSchema {
 	public static String createUserSayingsCacheKey(String username) {
 		return RedisKeys.USERSAYINGS.getKey() + ":" + username;
 	}
+
+	public static String createUserSayingsCacheKey(Long id) {
+		return RedisKeys.SAYING.getKey() + ":" + id;
+		
+	}
 	
 }

@@ -16,9 +16,9 @@ import com.say.say.util.Util;
  * @author gavrilo
  *
  */
-public class GlobalConfig {
+public class ApplicationProperties {
 
-	private static final Logger log = LoggerFactory.getLogger(GlobalConfig.class);
+	private static final Logger log = LoggerFactory.getLogger(ApplicationProperties.class);
 
 	private Map<String,String> propertyMap;
 	

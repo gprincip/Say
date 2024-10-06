@@ -14,7 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nimbusds.oauth2.sdk.util.StringUtils;
-import com.say.say.config.GlobalConfig;
+import com.say.say.config.ApplicationProperties;
+import com.say.say.dao.SayingDaoDbImpl;
 import com.say.say.dao.repository.SayingRepository;
 import com.say.say.dao.repository.TagRepository;
 import com.say.say.model.Saying;
@@ -31,7 +32,7 @@ import com.say.say.util.Util;
 public class SayingController {
 
 	@Autowired
-	SayingRepository sayingRepo;
+	SayingDaoDbImpl sayingDao;
 	
 	@Autowired
 	SayingService sayingService;
@@ -49,7 +50,7 @@ public class SayingController {
 	UserService userService;
 	
 	@Autowired
-	GlobalConfig config;
+	ApplicationProperties config;
 	
 	@RequestMapping(path="/testSave")
 	public void testSave() {
@@ -64,13 +65,13 @@ public class SayingController {
 		}
 		
 		s.setTags(tags);
-		sayingRepo.save(s);
+		sayingDao.save(s);
 		System.out.println("Saved: " + s);
 	}
 	
 	@RequestMapping(path="/findAll")
 	public List<Saying> findAll(HttpServletRequest request){
-		return sayingRepo.findAll();
+		return sayingDao.findAll();
 	}
 	
 	/**
@@ -108,7 +109,7 @@ public class SayingController {
 	
 	@RequestMapping(path="/getAllSayingsFromUser", method = RequestMethod.GET)
 	public List<Saying> getAllSayingsFromUser(@RequestParam(name = "userId") long userId){
-		return sayingRepo.getSayingsFromUserId(userId);
+		return sayingDao.getSayingsFromUserId(userId);
 	}
 	
 }

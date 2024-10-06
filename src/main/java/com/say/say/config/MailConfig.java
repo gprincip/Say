@@ -12,7 +12,7 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 public class MailConfig {
 
 	@Autowired
-	GlobalConfig config;
+	ApplicationProperties config;
 	
 	@Bean(name="mailSender")
     public MailSender javaMailService() {

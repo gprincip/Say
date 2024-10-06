@@ -16,7 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 
 import com.nimbusds.oauth2.sdk.util.StringUtils;
-import com.say.say.config.GlobalConfig;
+import com.say.say.config.ApplicationProperties;
 import com.say.say.model.LoggedUser;
 
 public class Util {
