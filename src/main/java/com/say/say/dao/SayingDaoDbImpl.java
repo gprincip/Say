@@ -16,9 +16,7 @@ public class SayingDaoDbImpl implements SayingDao{
 	
 	@Override
 	public void save(Saying saying) {
-	
 		sayingRepo.save(saying);
-		
 	}
 	
 	public Saying getLastSayingFromIp(String clientIp) {

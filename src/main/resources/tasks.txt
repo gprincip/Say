@@ -45,6 +45,12 @@ data currently in the search box inserted by user (if needed at all, for now thi
 
 33. Create a factory for choosing display strategy in: public SayingsDisplayStrategy getSayingsDisplayStrategy() {
 
+34. Make saying posting cooldown logic using redis
+
+35. In the log, this line is logged two times during application startup: [com.say.say.config.ApplicationProperties] init:44 : Application properties initialized!
+
+36. Check if "private Set<Tag> loadTags(Set<String> tagNames) {" can be optimized with Redis
+
 ==========================RESOLVED TASKS============================
 
 2. Fix layout glitches

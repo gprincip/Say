@@ -15,7 +15,14 @@ public class RedisSchema {
 
 	public static String createUserSayingsCacheKey(Long id) {
 		return RedisKeys.SAYING.getKey() + ":" + id;
-		
+	}
+	
+	/**
+	 * Timestamp of when user made his last post
+	 * @return
+	 */
+	public static String createUserLastPostTimestampKey(Long userId) {
+		return RedisKeys.USER_LAST_POST_TIMESTAMP.getKey() + ":" + userId.toString();
 	}
 	
 }

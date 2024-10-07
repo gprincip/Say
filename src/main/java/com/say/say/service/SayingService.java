@@ -16,6 +16,9 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import com.say.say.config.ApplicationProperties;
+import com.say.say.dao.SayingDao;
+import com.say.say.dao.SayingDaoDbImpl;
+import com.say.say.dao.SayingDaoRedisImpl;
 import com.say.say.dao.repository.SayingRepository;
 import com.say.say.dao.repository.TagRepository;
 import com.say.say.model.Saying;
@@ -30,10 +33,10 @@ public class SayingService {
 	TagRepository tagRepo;
 	
 	@Autowired
-	SayingRepository sayingRepo;
+	SayingDaoDbImpl sayingDao;
 	
-	@PersistenceContext
-	EntityManager entityManager;
+	@Autowired
+	SayingDaoRedisImpl sayingRedisDao;
 	
 	@Autowired
 	ApplicationProperties config;
@@ -46,7 +49,8 @@ public class SayingService {
 		Set<Tag> tagObjects = loadTags(saying.getTagNames());
 		saying.setTags(tagObjects);
 		
-		sayingRepo.save(saying);
+		sayingDao.save(saying);
+		sayingRedisDao.saveUserLastPostTimestamp();
 		log.info("New saying saved! info: " + saying);
 		
 	}
@@ -87,7 +91,7 @@ public class SayingService {
 	 */
 	public List<Saying> getSayingsByTextLimited(String searchTerm, int limit) {
 		
-		List<Saying> results = sayingRepo.getSayingsByTextLimited(searchTerm, limit);
+		List<Saying> results = sayingDao.getSayingsByTextLimited(searchTerm, limit);
 		
 		return results;
 	}

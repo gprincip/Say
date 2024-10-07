@@ -1,6 +1,5 @@
 package com.say.say.service;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -13,15 +12,12 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.say.say.dao.SayingDaoDbImpl;
-import com.say.say.dao.repository.SayingRepository;
-import com.say.say.model.RedisKeys;
 import com.say.say.model.Saying;
+import com.say.say.redis.RedisConnectionProvider;
 import com.say.say.util.JsonUtil;
 import com.say.say.util.RedisSchema;
 
 import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisPool;
-import redis.clients.jedis.JedisPoolConfig;
 import redis.clients.jedis.Pipeline;
 
 @Service
@@ -31,6 +27,9 @@ public class RedisService{
 	
 	@Autowired
 	SayingDaoDbImpl sayingsDao;
+	
+	@Autowired
+	RedisConnectionProvider redis;
 	
 	public void testRedis() {
 		
@@ -54,10 +53,8 @@ public class RedisService{
 		AtomicInteger ai = new AtomicInteger(0);
 		Collection<List<Saying>> partitioned = sayings.stream().
 				collect(Collectors.groupingBy(user -> ai.getAndIncrement() / 100)).values();
-		
-		JedisPool jedisPool = new JedisPool(new JedisPoolConfig(), "localhost", 6379);
-		
-		try (Jedis jedis = jedisPool.getResource()) {
+				
+		try (Jedis jedis = redis.getJedisPool().getResource()) {
 		
 			int partitionNo = 1;
 			long start = 0;
@@ -84,8 +81,6 @@ public class RedisService{
 				
 			log.info("Finished adding user's (" + username + ") sayings to the redis cache in " + (System.currentTimeMillis() - start) + " ms");
 		}
-		
-		jedisPool.close();
 	}
 	
 	@Async

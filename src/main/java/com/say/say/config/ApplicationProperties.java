@@ -35,13 +35,15 @@ public class ApplicationProperties {
 	private static final String MAIL_SENDER_PROPERTIES_SMTP_ENABLE_STARTTLS_KEY = "mailSender.properties.mail.smtp.starttls.enable";
 	private static final String MAIL_SENDER_PROPERTIES_SMTP_DEBUG_KEY = "mailSender.properties.mail.smtp.debug";
 	private static final String MAIL_SENDER_PROPERTIES_SMTP_SSL_TRUST_KEY = "mailSender.properties.mail.smtp.ssl.trust";
+	private static final String REDIS_CONNECTION_PORT_KEY = "redis.connection.port";
+	private static final String REDIS_CONNECTION_HOST_KEY = "redis.connection.host";
 	
 	public void init() {
 		
 		try {
-			File globalConfig = new ClassPathResource("globalConfig.properties").getFile();
-			propertyMap = Util.loadPropertiesFileIntoMap(globalConfig);
-			log.info("GlobalConfig initialized!");
+			File applicationProperties = new ClassPathResource("applicationProperties.properties").getFile();
+			propertyMap = Util.loadPropertiesFileIntoMap(applicationProperties);
+			log.info("Application properties initialized!");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -104,6 +106,14 @@ public class ApplicationProperties {
 	
 	public String getMailSenderSmtpSSlTrustProperty() {
 		return getProperty(MAIL_SENDER_PROPERTIES_SMTP_SSL_TRUST_KEY);
+	}
+	
+	public String getRedisConnectionHostAsString() {
+		return getProperty(REDIS_CONNECTION_HOST_KEY);
+	}
+	
+	public Integer getRedisConnectionPortAsInt() {
+		return Integer.parseInt(getProperty(REDIS_CONNECTION_PORT_KEY));
 	}
 	
 }
