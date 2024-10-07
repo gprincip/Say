@@ -9,8 +9,6 @@
 For example like on facebook, when you type something it searches for names, locations, groups and more at the
 same time.
 
-14. Consider hot-reload
-
 16. Make admin page and permit it only for admins. For example configuration can be reloaded there without restarting the app
 
 18. For post_cooldown.format.units=minutes,seconds, when there is < 1sec left, no time is displayed
@@ -45,11 +43,11 @@ data currently in the search box inserted by user (if needed at all, for now thi
 
 33. Create a factory for choosing display strategy in: public SayingsDisplayStrategy getSayingsDisplayStrategy() {
 
-34. Make saying posting cooldown logic using redis
-
 35. In the log, this line is logged two times during application startup: [com.say.say.config.ApplicationProperties] init:44 : Application properties initialized!
 
 36. Check if "private Set<Tag> loadTags(Set<String> tagNames) {" can be optimized with Redis
+
+37. Add saying to the cache of all sayings of user when user creates a new post through UI
 
 ==========================RESOLVED TASKS============================
 
@@ -95,4 +93,9 @@ public List<Integer> getSayingsContainingExactlyGivenTags(@Param(value="tagIds")
 21. Move backend searching logic to some other controller. Currently it is implemented in test controller.
 
 22. DBSearcher currently don't use third parameter List<SearchType>, find usage for it or discard it
+
+34. Make saying posting cooldown logic using redis
+
+14. Consider hot-reload
+
 
