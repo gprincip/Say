@@ -15,24 +15,22 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nimbusds.oauth2.sdk.util.StringUtils;
 import com.say.say.config.ApplicationProperties;
-import com.say.say.dao.SayingDaoDbImpl;
-import com.say.say.dao.repository.SayingRepository;
+import com.say.say.dao.SayingDaoDb;
 import com.say.say.dao.repository.TagRepository;
+import com.say.say.model.LoggedUser;
 import com.say.say.model.Saying;
 import com.say.say.model.Tag;
-import com.say.say.model.LoggedUser;
 import com.say.say.service.SayingService;
 import com.say.say.service.UserService;
 import com.say.say.util.JsonUtil;
 import com.say.say.util.TimeUtil;
-import com.say.say.util.Util;
 
 @RestController
 @RequestMapping(path="/api/saying")
 public class SayingController {
 
 	@Autowired
-	SayingDaoDbImpl sayingDao;
+	SayingDaoDb sayingDao;
 	
 	@Autowired
 	SayingService sayingService;

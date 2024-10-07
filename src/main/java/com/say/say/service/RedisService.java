@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
-import com.say.say.dao.SayingDaoDbImpl;
+import com.say.say.dao.SayingDaoDb;
 import com.say.say.model.Saying;
 import com.say.say.redis.RedisConnectionProvider;
 import com.say.say.util.JsonUtil;
@@ -26,7 +26,7 @@ public class RedisService{
 	private static final Logger log = LoggerFactory.getLogger(RedisService.class);
 	
 	@Autowired
-	SayingDaoDbImpl sayingsDao;
+	SayingDaoDb sayingsDao;
 	
 	@Autowired
 	RedisConnectionProvider redis;

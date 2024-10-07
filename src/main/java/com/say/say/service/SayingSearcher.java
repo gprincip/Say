@@ -5,15 +5,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.say.say.dao.SayingDaoDbImpl;
-import com.say.say.dao.repository.SayingRepository;
+import com.say.say.dao.SayingDaoDb;
 import com.say.say.model.Saying;
 
 @Component
 public class SayingSearcher {
 
 	@Autowired
-	SayingDaoDbImpl sayingDao;
+	SayingDaoDb sayingDao;
 	
 	public List<Saying> searchSayingsContainingAnyGivenTags(List<Long> tagIds){
 		

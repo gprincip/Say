@@ -9,12 +9,11 @@ import com.say.say.dao.repository.SayingRepository;
 import com.say.say.model.Saying;
 
 @Repository
-public class SayingDaoDbImpl implements SayingDao{
+public class SayingDaoDbImpl implements SayingDaoDb{
 
 	@Autowired
 	SayingRepository sayingRepo;
 	
-	@Override
 	public void save(Saying saying) {
 		sayingRepo.save(saying);
 	}
@@ -47,13 +46,8 @@ public class SayingDaoDbImpl implements SayingDao{
 		return sayingRepo.getSayingsByTextLimited(searchTerm, limit);
 	}
 
-	@Override
 	public List<Saying> findAll() {
 		return sayingRepo.findAll();
 	}
-	
-	
-	
-	
 	
 }

@@ -10,8 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.nimbusds.oauth2.sdk.util.StringUtils;
 import com.say.say.config.ApplicationProperties;
-import com.say.say.dao.SayingDaoDbImpl;
-import com.say.say.dao.repository.SayingRepository;
+import com.say.say.dao.SayingDaoDb;
 import com.say.say.dao.repository.UserRepository;
 import com.say.say.sayings.displayStrategy.SayingsDisplayStrategy;
 import com.say.say.sayings.displayStrategy.SayingsDisplayStrategyAll;
@@ -33,7 +32,7 @@ public class LoggedUser implements Serializable{
 	UserRepository userRepo;
 	
 	@Autowired
-	SayingDaoDbImpl sayingDao;
+	SayingDaoDb sayingDao;
 	
 	@Autowired
 	SqlExecutorService sqlExecutorService;

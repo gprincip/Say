@@ -5,21 +5,14 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import com.say.say.config.ApplicationProperties;
-import com.say.say.dao.SayingDao;
-import com.say.say.dao.SayingDaoDbImpl;
-import com.say.say.dao.SayingDaoRedisImpl;
-import com.say.say.dao.repository.SayingRepository;
+import com.say.say.dao.SayingDaoDb;
+import com.say.say.dao.SayingDaoRedis;
 import com.say.say.dao.repository.TagRepository;
 import com.say.say.model.Saying;
 import com.say.say.model.Tag;
@@ -33,10 +26,10 @@ public class SayingService {
 	TagRepository tagRepo;
 	
 	@Autowired
-	SayingDaoDbImpl sayingDao;
+	SayingDaoDb sayingDao;
 	
 	@Autowired
-	SayingDaoRedisImpl sayingRedisDao;
+	SayingDaoRedis sayingRedisDao;
 	
 	@Autowired
 	ApplicationProperties config;

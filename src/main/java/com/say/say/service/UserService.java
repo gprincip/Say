@@ -7,13 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.say.say.config.ApplicationProperties;
-import com.say.say.dao.SayingDaoRedisImpl;
+import com.say.say.dao.SayingDaoRedis;
 
 @Component
 public class UserService {
 	
 	@Autowired
-	SayingDaoRedisImpl sayingRedisDao;
+	SayingDaoRedis sayingRedisDao;
 	
 	@Autowired
 	ApplicationProperties config;

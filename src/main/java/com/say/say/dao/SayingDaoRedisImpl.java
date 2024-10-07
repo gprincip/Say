@@ -1,7 +1,6 @@
 package com.say.say.dao;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -16,7 +15,7 @@ import com.say.say.util.RedisSchema;
 import redis.clients.jedis.Jedis;
 
 @Repository
-public class SayingDaoRedisImpl implements SayingDao{
+public class SayingDaoRedisImpl implements SayingDaoRedis{
 
 	@Autowired
 	RedisService redisService;
@@ -27,7 +26,6 @@ public class SayingDaoRedisImpl implements SayingDao{
 	@Autowired
 	LoggedUser user;
 	
-	@Override
 	public void save(Saying saying) {
 				
 			try (Jedis jedis = redis.getJedisPool().getResource()) {
@@ -54,11 +52,4 @@ public class SayingDaoRedisImpl implements SayingDao{
 		return null;
 		
 	}
-	
-	@Override
-	public List<Saying> findAll() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }
