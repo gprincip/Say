@@ -22,6 +22,7 @@ import com.say.say.util.RedisSchema;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
+import redis.clients.jedis.Pipeline;
 
 @Service
 public class RedisService{
@@ -65,12 +66,18 @@ public class RedisService{
 				log.info("Adding user's (" + username + ") sayings to the redis cache. Partition: " + partitionNo + "/" + partitioned.size());
 				start = System.currentTimeMillis();
 				
-				for(Saying s : partition) {
+				Pipeline pipeline = new Pipeline(jedis);
+				
+				for(Saying saying : partition) {
 					
-					String sayingJson = JsonUtil.sayingToJson(s);
-					jedis.sadd(RedisSchema.createUserSayingsCacheKey(username), sayingJson);
+					saying.addTagsToList();
+					String sayingJson = JsonUtil.sayingToJson(saying);
+					pipeline.sadd(RedisSchema.createUserSayingsCacheKey(username), sayingJson);
 					
 				}
+				
+				pipeline.sync();
+				pipeline.close();
 				
 			}
 			

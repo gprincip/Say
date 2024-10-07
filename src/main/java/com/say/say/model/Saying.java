@@ -1,8 +1,10 @@
 package com.say.say.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -17,10 +19,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Type;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.say.say.comparator.TagComparator;
 
 @Entity
 @Table(name="saying")
@@ -50,11 +55,19 @@ public class Saying{
 	private Date date;
 	
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JsonProperty("tags")
+	@JsonIgnore
 	private Set<Tag> tags;
 	
 	@Column
 	private Integer score;
+	
+	/**
+	 * Added to have consistent order of tags for serialization
+	 * For example adding json to redis set so we don't have duplicates
+	 */
+	@JsonProperty("tags")
+	@Transient
+	private List<Tag> orderedTags;
 	
 	public Saying(String text, String author, Set<Tag> tags, int score, String clientIp, Date date) {
 		this.text = text;
@@ -89,10 +102,10 @@ public class Saying{
 	public void setTags(Set<Tag> tags) {
 		this.tags = tags;
 	}
-	public int getScore() {
+	public Integer getScore() {
 		return score;
 	}
-	public void setScore(int score) {
+	public void setScore(Integer score) {
 		this.score = score;
 	}
 	public String getClientIp() {
@@ -126,6 +139,7 @@ public class Saying{
 				+ date + ", tags=" + tags + ", score=" + score + "]";
 	}
 
+	@JsonIgnore
 	public Set<String> getTagNames() {
 		
 		return (tags.stream().map(elem -> elem.getName()).collect(Collectors.toSet()));		
@@ -144,6 +158,12 @@ public class Saying{
 		map.put("date", date.toString());
 		
 		return map;
+	}
+	
+	public void addTagsToList() {
+		orderedTags = new ArrayList<Tag>(tags);
+		orderedTags.sort(new TagComparator());
+		
 	}
 	
 }
