@@ -36,7 +36,7 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
 			Authentication authentication) throws IOException, ServletException {
 		
 		Util.setUserdata(user, authentication, request);
-		redisService.addSayingsForUserToRedisCacheAsync(user.getUsername());
+		redisService.addSayingsForUserToRedisCacheAsync(user.getUser().getId());
 		
 		proceed(request, response, authentication);
 	}

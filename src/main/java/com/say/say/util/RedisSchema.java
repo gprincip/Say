@@ -9,11 +9,11 @@ import com.say.say.model.RedisKeys;
  */
 public class RedisSchema {
 
-	public static String createUserSayingsCacheKey(String username) {
-		return RedisKeys.USERSAYINGS.getKey() + ":" + username;
+	public static String createUserSayingsCacheKey(Long userId) {
+		return RedisKeys.USERSAYINGS.getKey() + ":" + userId.toString();
 	}
 
-	public static String createUserSayingsCacheKey(Long id) {
+	public static String createSayingsCacheKey(Long id) {
 		return RedisKeys.SAYING.getKey() + ":" + id;
 	}
 	

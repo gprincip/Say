@@ -117,7 +117,7 @@ public class LoggedUser implements Serializable{
 			sayings = new ArrayList<Saying>();
 		}
 		
-		List<Saying> sayings = sayingDao.getSayingsFromUsername(username);
+		List<Saying> sayings = sayingDao.getSayingsFromUserId(user.getId());
 		setSayings(sayings);
 		
 		if(sayingsForDisplay == null) {

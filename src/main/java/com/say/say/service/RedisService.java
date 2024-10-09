@@ -1,9 +1,6 @@
 package com.say.say.service;
 
-import java.util.Collection;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,13 +9,11 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.say.say.dao.SayingDaoDb;
+import com.say.say.dao.SayingDaoRedis;
 import com.say.say.model.Saying;
 import com.say.say.redis.RedisConnectionProvider;
-import com.say.say.util.JsonUtil;
-import com.say.say.util.RedisSchema;
 
 import redis.clients.jedis.Jedis;
-import redis.clients.jedis.Pipeline;
 
 @Service
 public class RedisService{
@@ -27,6 +22,9 @@ public class RedisService{
 	
 	@Autowired
 	SayingDaoDb sayingsDao;
+	
+	@Autowired
+	SayingDaoRedis sayingRedisDao;
 	
 	@Autowired
 	RedisConnectionProvider redis;
@@ -46,46 +44,15 @@ public class RedisService{
 	}
 	
 
-	public void addSayingsForUserToRedisCache(String username) {
+	public void addSayingsForUserToRedisCache(Long userId) {
 		
-		List<Saying> sayings = sayingsDao.getSayingsFromUsername(username);
-		
-		AtomicInteger ai = new AtomicInteger(0);
-		Collection<List<Saying>> partitioned = sayings.stream().
-				collect(Collectors.groupingBy(user -> ai.getAndIncrement() / 100)).values();
-				
-		try (Jedis jedis = redis.getJedisPool().getResource()) {
-		
-			int partitionNo = 1;
-			long start = 0;
-			for(List<Saying> partition : partitioned) {
-				
-				log.info("Adding user's (" + username + ") sayings to the redis cache. Partition: " + partitionNo + "/" + partitioned.size());
-				start = System.currentTimeMillis();
-				
-				Pipeline pipeline = new Pipeline(jedis);
-				
-				for(Saying saying : partition) {
-					
-					saying.addTagsToList();
-					String sayingJson = JsonUtil.sayingToJson(saying);
-					pipeline.sadd(RedisSchema.createUserSayingsCacheKey(username), sayingJson);
-					
-				}
-				
-				pipeline.sync();
-				pipeline.close();
-				
-			}
-			
-				
-			log.info("Finished adding user's (" + username + ") sayings to the redis cache in " + (System.currentTimeMillis() - start) + " ms");
-		}
+		List<Saying> sayings = sayingsDao.getSayingsFromUserId(userId);
+		sayingRedisDao.addUserSayingsToCache(userId, sayings);
 	}
 	
 	@Async
-	public void addSayingsForUserToRedisCacheAsync(String username) {	
-		addSayingsForUserToRedisCache(username);
+	public void addSayingsForUserToRedisCacheAsync(Long userId) {	
+		addSayingsForUserToRedisCache(userId);
 	}
 	
 }

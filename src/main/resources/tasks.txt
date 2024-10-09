@@ -49,6 +49,7 @@ data currently in the search box inserted by user (if needed at all, for now thi
 
 37. Add saying to the cache of all sayings of user when user creates a new post through UI
 
+38. List<Saying> sayings = sayingDao.getSayingsFromUsername(username); - use Redis
 ==========================RESOLVED TASKS============================
 
 2. Fix layout glitches

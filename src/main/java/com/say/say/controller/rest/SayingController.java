@@ -102,6 +102,7 @@ public class SayingController {
 		}
 		
 		sayingService.persistSaying(saying, userIp);
+		sayingService.addSayingToUserSayingsCache(saying, user.getUser().getId());
 		
 		return "";
 	}

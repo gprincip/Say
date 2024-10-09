@@ -44,6 +44,7 @@ public class SayingService {
 		
 		sayingDao.save(saying);
 		sayingRedisDao.saveUserLastPostTimestamp();
+		
 		log.info("New saying saved! info: " + saying);
 		
 	}
@@ -87,6 +88,12 @@ public class SayingService {
 		List<Saying> results = sayingDao.getSayingsByTextLimited(searchTerm, limit);
 		
 		return results;
+	}
+
+	public void addSayingToUserSayingsCache(Saying saying, Long id) {
+		
+		sayingRedisDao.addSayingToUserSayingsCache(saying, id);
+		
 	}
 	
 }
