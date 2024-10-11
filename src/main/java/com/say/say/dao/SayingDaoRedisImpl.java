@@ -1,8 +1,10 @@
 package com.say.say.dao;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
@@ -32,6 +34,9 @@ public class SayingDaoRedisImpl implements SayingDaoRedis{
 	
 	@Autowired
 	LoggedUser user;
+	
+	@Autowired
+	SayingDaoDb sayingDbDao;
 	
 	public void save(Saying saying) {
 				
@@ -80,7 +85,7 @@ public class SayingDaoRedisImpl implements SayingDaoRedis{
 
 				for (Saying saying : partition) {
 
-					saying.addTagsToList();
+					saying.addTagsToList(); //to sort tags so sayings are not duplicated in the redis set
 					String sayingJson = JsonUtil.sayingToJson(saying);
 					pipeline.sadd(RedisSchema.createUserSayingsCacheKey(userId), sayingJson);
 
@@ -99,11 +104,38 @@ public class SayingDaoRedisImpl implements SayingDaoRedis{
 		
 		try (Jedis jedis = redis.getJedisPool().getResource()) {
 			
-
+			saying.addTagsToList(); //to sort tags so sayings are not duplicated in the redis set
 			String sayingJson = JsonUtil.sayingToJson(saying);
 			jedis.sadd(RedisSchema.createUserSayingsCacheKey(userId), sayingJson);
 			log.info("Added new saying from user: (" + userId + ") to its cache!");
 			
+		}
+		
+	}
+
+	@Override
+	/**
+	 * First fetch Redis, if not found then try DB
+	 */
+	public List<Saying> getSayingsFromUserId(Long userId) {
+		
+		List<Saying> sayings = new ArrayList<>();
+		
+		try (Jedis jedis = redis.getJedisPool().getResource()) {
+			
+			Set<String> userSayingsJson = jedis.smembers(RedisSchema.createUserSayingsCacheKey(userId));
+			
+			for(String sayingJson : userSayingsJson) {
+				sayings.add(JsonUtil.jsonToSayingJackson(sayingJson));
+			}
+			
+			if(sayings.isEmpty()) {
+				sayings = sayingDbDao.getSayingsFromUserId(userId);
+				addUserSayingsToCache(userId, sayings);
+				return sayings;
+			}
+			
+			return sayings;
 		}
 		
 	}

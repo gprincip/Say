@@ -11,10 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.nimbusds.oauth2.sdk.util.StringUtils;
 import com.say.say.config.ApplicationProperties;
 import com.say.say.dao.SayingDaoDb;
+import com.say.say.dao.SayingDaoRedis;
 import com.say.say.dao.repository.UserRepository;
 import com.say.say.sayings.displayStrategy.SayingsDisplayStrategy;
 import com.say.say.sayings.displayStrategy.SayingsDisplayStrategyAll;
 import com.say.say.sayings.displayStrategy.SayingsDisplayStrategyFetchQuantity;
+import com.say.say.service.RedisService;
 import com.say.say.sql.SqlExecutorService;
 
 /**
@@ -35,10 +37,16 @@ public class LoggedUser implements Serializable{
 	SayingDaoDb sayingDao;
 	
 	@Autowired
+	SayingDaoRedis sayingRedisDao;
+	
+	@Autowired
 	SqlExecutorService sqlExecutorService;
 	
 	@Autowired
 	SayingsDisplayStrategy sayingsDisplayStrategy;
+	
+	@Autowired
+	RedisService redisService;
 	
 	@Autowired
 	ApplicationProperties config;
@@ -117,7 +125,8 @@ public class LoggedUser implements Serializable{
 			sayings = new ArrayList<Saying>();
 		}
 		
-		List<Saying> sayings = sayingDao.getSayingsFromUserId(user.getId());
+		List<Saying> sayings = redisService.getUserSayingsFromCache(user.getId());
+		
 		setSayings(sayings);
 		
 		if(sayingsForDisplay == null) {
@@ -130,7 +139,8 @@ public class LoggedUser implements Serializable{
 		sayingsForDisplay = sayingsDisplayStrategy.selectSayings(sayings);
 		
 	}
-	
+
+
 	public SayingsDisplayStrategy getSayingsDisplayStrategy() {
 		return sayingsDisplayStrategy;
 	}

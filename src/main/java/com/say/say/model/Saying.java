@@ -133,6 +133,14 @@ public class Saying{
 		this.user = user;
 	}
 
+	public List<Tag> getOrderedTags() {
+		return orderedTags;
+	}
+
+	public void setOrderedTags(List<Tag> orderedTags) {
+		this.orderedTags = orderedTags;
+	}
+
 	@Override
 	public String toString() {
 		return "Saying [id=" + id + ", text=" + text + ", author=" + author + ", clientIp=" + clientIp + ", date="

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.say.say.dao.SayingDaoDb;
 import com.say.say.dao.SayingDaoRedis;
 import com.say.say.model.Saying;
+import com.say.say.model.Tag;
 import com.say.say.redis.RedisConnectionProvider;
 
 import redis.clients.jedis.Jedis;
@@ -53,6 +54,25 @@ public class RedisService{
 	@Async
 	public void addSayingsForUserToRedisCacheAsync(Long userId) {	
 		addSayingsForUserToRedisCache(userId);
+	}
+	
+	public List<Saying> getUserSayingsFromCache(Long userId){
+		List<Saying> sayings = null;
+		sayings = sayingRedisDao.getSayingsFromUserId(userId);
+		populateTags(sayings);
+		return sayings;
+	}
+	
+	private void populateTags(List<Saying> sayings) {
+		
+		for(Saying saying : sayings) {
+			List<Tag> tags = saying.getOrderedTags();
+			
+			for(Tag tag : tags) {
+				saying.addTag(tag);
+			}
+		}
+		
 	}
 	
 }

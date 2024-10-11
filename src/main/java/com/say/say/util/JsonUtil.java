@@ -1,5 +1,7 @@
 package com.say.say.util;
 
+import java.io.IOException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,6 +22,16 @@ public class JsonUtil {
 		Saying saying = gson.fromJson(json, Saying.class);
 		return saying;
 
+	}
+	
+	public static Saying jsonToSayingJackson(String json) {
+		ObjectMapper obj = new ObjectMapper();
+		try {
+			return obj.readValue(json, Saying.class);
+		} catch (IOException e) {
+			log.error("Error deserializing saying: " + json, e);
+			return null;
+		}
 	}
 	
 	public static String sayingToJson(Saying saying) {

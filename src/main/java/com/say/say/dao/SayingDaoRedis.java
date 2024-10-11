@@ -16,5 +16,7 @@ public interface SayingDaoRedis {
 	public void addUserSayingsToCache(Long userId, List<Saying> sayings);
 
 	public void addSayingToUserSayingsCache(Saying saying, Long id);
+	
+	public List<Saying> getSayingsFromUserId(Long userId);
 
 }
