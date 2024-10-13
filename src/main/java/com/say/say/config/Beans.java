@@ -1,5 +1,6 @@
 package com.say.say.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -10,9 +11,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.say.say.model.LoggedUser;
+import com.say.say.sayings.displayStrategy.DisplayStrategyEnum;
+import com.say.say.sayings.displayStrategy.DisplayStrategyFactory;
 import com.say.say.sayings.displayStrategy.SayingsDisplayStrategy;
 import com.say.say.sayings.displayStrategy.SayingsDisplayStrategyAll;
-import com.say.say.sayings.displayStrategy.SayingsDisplayStrategyFetchQuantity;
+import com.say.say.sayings.displayStrategy.SayingsDisplayStrategyFixedNumber;
 import com.say.say.search.DBSearcher;
 import com.say.say.search.ISearcher;
 import com.say.say.search.RedisSearcher;
@@ -65,20 +68,17 @@ public class Beans {
 		return new SqlExecutorServiceImpl();
 	}
 	
+	@Autowired
+	DisplayStrategyFactory displayStrategyFactory;
+	
 	@Bean
 	public SayingsDisplayStrategy getSayingsDisplayStrategy() {
 		
 		ApplicationProperties config = new ApplicationProperties(); //we must use new instance of config here, because it would still not be injected into this class when we would use it
 		config.init();
+		
 		String strategy = config.getProperty("sayings.displayStrategy.usedDisplayStrategy");
-
-		switch (strategy) {
-		case "fetchQuantity":
-			return new SayingsDisplayStrategyFetchQuantity();
-		case "all":
-			return new SayingsDisplayStrategyAll();
-		}
-		return null;
+		return displayStrategyFactory.getDisplayStrategy(DisplayStrategyEnum.valueOf(strategy));
 	}
 	
 	@Bean

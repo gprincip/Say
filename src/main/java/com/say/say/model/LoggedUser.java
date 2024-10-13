@@ -15,7 +15,7 @@ import com.say.say.dao.SayingDaoRedis;
 import com.say.say.dao.repository.UserRepository;
 import com.say.say.sayings.displayStrategy.SayingsDisplayStrategy;
 import com.say.say.sayings.displayStrategy.SayingsDisplayStrategyAll;
-import com.say.say.sayings.displayStrategy.SayingsDisplayStrategyFetchQuantity;
+import com.say.say.sayings.displayStrategy.SayingsDisplayStrategyFixedNumber;
 import com.say.say.service.RedisService;
 import com.say.say.sql.SqlExecutorService;
 
@@ -157,7 +157,7 @@ public class LoggedUser implements Serializable{
 	    
 		switch (strategy) {
 		case "fetchQuantity":
-			sayingsDisplayStrategy = new SayingsDisplayStrategyFetchQuantity();
+			sayingsDisplayStrategy = new SayingsDisplayStrategyFixedNumber();
 			break;
 		case "all":
 			sayingsDisplayStrategy = new SayingsDisplayStrategyAll();
