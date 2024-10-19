@@ -78,12 +78,23 @@ function validateAndSave(){
 			if(status != ''){
 				afterErrors(status);
 			}else{
-				afterSuccess();
+				afterSuccess(saying);
 				
 			}
 			
 		}
 	
+	});
+	
+}
+
+function generateSayingCreatedEvent(saying){
+	
+	saying.id = 0; //dummy id
+	jQuery.post({
+		url : "/say/api/rest/v1/generateSayingCreatedEvent",
+		contentType: "application/json; charset=utf-8",
+		data: JSON.stringify(saying)
 	});
 	
 }
@@ -111,9 +122,12 @@ function clearFields(){
 	
 }
 
-function afterSuccess(){
+function afterSuccess(saying){
 	clearFields();
 	$("#success").text("Successfuly posted!");
+	
+	generateSayingCreatedEvent(saying);
+	
 	//remove tags when saying is submitted successfully
 	tags.clear();
 }

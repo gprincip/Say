@@ -1,0 +1,17 @@
+{
+  "namespace": "com.say.say.generated.avro",
+  "type": "record",
+  "name": "SayingPostedEvent",
+  "fields": [
+    {
+      "name": "saying_id",
+      "type": "long",
+      "doc": "Id of the saying"
+    },
+    {
+      "name": "text",
+      "type": "string",
+      "doc": "text of the saying"
+    }
+  ]
+}
