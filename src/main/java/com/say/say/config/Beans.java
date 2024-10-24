@@ -10,6 +10,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.context.WebApplicationContext;
 
+import com.say.say.events.consumers.SayingEventsConsumer;
+import com.say.say.events.consumers.SayingEventsConsumerImpl;
 import com.say.say.model.LoggedUser;
 import com.say.say.sayings.displayStrategy.DisplayStrategyEnum;
 import com.say.say.sayings.displayStrategy.DisplayStrategyFactory;
@@ -84,6 +86,13 @@ public class Beans {
 	@Bean
 	public StorageService storageService() {
 		return new FileSystemStorageService();
+	}
+	
+	@Bean
+	public SayingEventsConsumer sayingEventConsumer() {
+		SayingEventsConsumer consumer = new SayingEventsConsumerImpl();
+		new Thread(() -> consumer.consumeSayings()).start();
+		return consumer;
 	}
 	
 }

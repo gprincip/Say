@@ -47,7 +47,7 @@ data currently in the search box inserted by user (if needed at all, for now thi
 
 36. Check if "private Set<Tag> loadTags(Set<String> tagNames) {" can be optimized with Redis
 
-38. List<Saying> sayings = sayingDao.getSayingsFromUsername(username); - use Redis
+39. Add redis to docker-compose
 ==========================RESOLVED TASKS============================
 
 2. Fix layout glitches
@@ -99,5 +99,5 @@ public List<Integer> getSayingsContainingExactlyGivenTags(@Param(value="tagIds")
 
 37. Add saying to the cache of all sayings of user when user creates a new post through UI
 
-
+38. List<Saying> sayings = sayingDao.getSayingsFromUsername(username); - use Redis
 

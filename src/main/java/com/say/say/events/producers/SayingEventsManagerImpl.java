@@ -7,14 +7,19 @@ import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.say.say.generated.avro.SayingPostedEvent;
 import com.say.say.model.Saying;
+import com.say.say.service.FileSystemStorageService;
 
 @Service
 public class SayingEventsManagerImpl implements SayingEventsManager {
 
+	Logger log = LoggerFactory.getLogger(SayingEventsManagerImpl.class);
+	
 	@Override
 	public Future<RecordMetadata> generateSayingCreatedEvent(Saying saying){
 		
