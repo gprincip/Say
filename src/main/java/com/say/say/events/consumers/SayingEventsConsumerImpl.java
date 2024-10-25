@@ -37,6 +37,7 @@ public class SayingEventsConsumerImpl implements SayingEventsConsumer {
 		kaProperties.put("group.id", SAYING_CONSUMER_GROUP_ID);
 		kaProperties.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
 		kaProperties.put("value.deserializer", "io.confluent.kafka.serializers.KafkaAvroDeserializer");
+		kaProperties.put("specific.avro.reader", "true");
 		kaProperties.put("schema.registry.url", "http://localhost:8081");
 		
 		try (KafkaConsumer<String, SayingPostedEvent> consumer = new KafkaConsumer<>(kaProperties)) {
@@ -46,8 +47,11 @@ public class SayingEventsConsumerImpl implements SayingEventsConsumer {
 			while (true) {
 				ConsumerRecords<String, SayingPostedEvent> records = consumer.poll(Duration.ofMillis(250));
 				for (ConsumerRecord<String, SayingPostedEvent> record : records) {
-					log.info("kinaction_info offset = {}, value = {}", record.offset(), record.value());
 
+					SayingPostedEvent consumedEvent = record.value();
+
+					log.info("kinaction_info offset = {}, value = {}", record.offset(), consumedEvent);
+					
 					OffsetAndMetadata offsetMeta = new OffsetAndMetadata(record.offset() + 1, "");
 
 					Map<TopicPartition, OffsetAndMetadata> kaOffsetMap = new HashMap<>();
