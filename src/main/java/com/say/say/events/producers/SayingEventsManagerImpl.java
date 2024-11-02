@@ -28,6 +28,7 @@ public class SayingEventsManagerImpl implements SayingEventsManager {
 	    producerProperties.put("key.serializer", "org.apache.kafka.common.serialization.LongSerializer");
 	    producerProperties.put("value.serializer", "io.confluent.kafka.serializers.KafkaAvroSerializer");
 	    producerProperties.put("schema.registry.url", "http://localhost:8081");
+	    producerProperties.put("interceptor.classes", "com.say.say.events.interceptors.SayingPostedEventProducerInterceptor");
 
 	    try(Producer<Long, SayingPostedEvent> producer = new KafkaProducer<Long, SayingPostedEvent>(producerProperties)){
 	    	
